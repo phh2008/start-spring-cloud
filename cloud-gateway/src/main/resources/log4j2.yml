@@ -1,0 +1,51 @@
+Configuration:
+  status: INFO
+  Properties: # 定义全局变量
+    Property: # 缺省配置（用于开发环境）。其他环境需要在VM参数中指定，如下：
+      #测试：-Dlog.level.console=warn
+      #生产：-Dlog.level.console=warn
+      - name: log.level.console
+        value: DEBUG
+      - name: log.level.file
+        value: INFO
+      - name: LOG_HOME
+        value: /home/data/logs
+      - name: PROJECT_NAME
+        value: cloud-gateway
+      - name: CONAOLE_LOG_PATTERN
+        value: "%highlight{%d{yyyy-MM-dd HH:mm:ss.SSS} %highlight{%5p} [%t] %highlight{%c{1.}.%M(%L)} : %m%n}"
+      - name: FILE_LOG_PATTERN
+        value: "%d{yyyy-MM-dd HH:mm:ss.SSS} %5p %X{pid} [%15.15t] %c.%M(%L) : %m%n"
+  Appenders:
+    Console:  #输出到控制台
+      name: CONSOLE
+      target: SYSTEM_OUT
+      PatternLayout:
+        pattern: ${CONAOLE_LOG_PATTERN}
+    RollingFile: # 输出到文件，超过128MB归档
+      name: ROLLING_FILE
+      fileName: ${LOG_HOME}/${PROJECT_NAME}/${PROJECT_NAME}.log
+      filePattern: ${LOG_HOME}/${PROJECT_NAME}/${PROJECT_NAME}_%d{yyyy-MM-dd}_%i.log.gz
+      PatternLayout:
+        pattern: ${FILE_LOG_PATTERN}
+      Policies:
+        TimeBasedTriggeringPolicy:
+          interval: "1"
+          modulate: true
+        SizeBasedTriggeringPolicy:
+          size: "50MB"
+  #      DefaultRolloverStrategy:
+  #        max: 1000
+  Loggers:
+    Root:
+      level: ${log.level.file}
+      AppenderRef:
+        - ref: CONSOLE
+        - ref: ROLLING_FILE
+    Logger:
+      - name: org.example
+        additivity: false
+        level: ${log.level.console}
+        AppenderRef:
+          - ref: CONSOLE
+          - ref: ROLLING_FILE
