@@ -54,27 +54,27 @@ public class CodeGenerator {
 
         // 数据源配置
         String jdbcName = scanner("DB类型(mysql5、mysql8、sqlServer、postGreSql)");
+        String hostPort = scanner("host:port ");
         String dbName = scanner("DB名称");
         DataSourceConfig dsc = new DataSourceConfig();
-        // dsc.setSchemaName("public")
         String jdbcUrl = "";
         String driverName = "";
         switch (jdbcName.toLowerCase()) {
             case "mysql5":
                 driverName = "com.mysql.jdbc.Driver";
-                jdbcUrl = String.format("jdbc:mysql://localhost:3306/%s?useUnicode=true&useSSL=false&characterEncoding=utf8", dbName);
+                jdbcUrl = String.format("jdbc:mysql://%s/%s?useUnicode=true&useSSL=false&characterEncoding=utf8", hostPort, dbName);
                 break;
             case "mysql8":
                 driverName = "com.mysql.cj.jdbc.Driver";
-                jdbcUrl = String.format("jdbc:mysql://localhost:3306/%s?useUnicode=true&useSSL=false&characterEncoding=utf8&serverTimezone=UTC&allowPublicKeyRetrieval=true", dbName);
+                jdbcUrl = String.format("jdbc:mysql://%s/%s?useUnicode=true&useSSL=false&characterEncoding=utf8&serverTimezone=UTC&allowPublicKeyRetrieval=true", hostPort, dbName);
                 break;
             case "sqlserver":
                 driverName = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
-                jdbcUrl = String.format("jdbc:sqlserver://127.0.0.1:1433;DatabaseName=%s", dbName);
+                jdbcUrl = String.format("jdbc:sqlserver://%s;DatabaseName=%s", hostPort, dbName);
                 break;
             case "postgresql":
                 driverName = "org.postgresql.Driver";
-                jdbcUrl = String.format("jdbc:postgresql://localhost/%s", dbName);
+                jdbcUrl = String.format("jdbc:postgresql://%s/%s", hostPort, dbName);
                 break;
             default:
                 System.err.println("请输入正确的数据库类型！！！");
