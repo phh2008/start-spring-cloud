@@ -2,7 +2,6 @@
 ## 工程结构
 ```
 Start-spring-cloud
-├── cloud-auth -- 授权服务
 ├── cloud-core -- 公用模块
 ├    ├── core-boot -- springboot通用配置
 ├    ├── core-elasticsearch -- ES封装
@@ -10,8 +9,8 @@ Start-spring-cloud
 ├    └── core-tool -- 工具类
 ├── cloud-gateway -- 网关
 ├── cloud-devops -- 运维中心(各种 admin 控制台)
+├    ├── code-generator -- 代码生成器
 ├    ├── cloud-admin -- spring-cloud后台管理
-├    ├── cloud-develop -- 代码生成
 ├── cloud-module -- 业务模块
 ├    ├── cloud-auth -- 认证服务
 ├    ├── cloud-sys -- 系统服务
