@@ -8,7 +8,7 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>cloud-odr</artifactId>
+    <artifactId>cloud-demo</artifactId>
     <packaging>jar</packaging>
 
 
@@ -18,7 +18,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>org.example.OdrApplication</mainClass>
+                    <mainClass>org.example.DemoApplication</mainClass>
                 </configuration>
             </plugin>
         </plugins>

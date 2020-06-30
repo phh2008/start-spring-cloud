@@ -11,7 +11,7 @@ Configuration:
       - name: LOG_HOME
         value: /home/data/logs
       - name: PROJECT_NAME
-        value: cloud-odr
+        value: cloud-demo
       - name: CONAOLE_LOG_PATTERN
         value: "%highlight{%d{yyyy-MM-dd HH:mm:ss.SSS} %highlight{%5p} [%t] %highlight{%c{1.}.%M(%L)} : %m%n}"
       - name: FILE_LOG_PATTERN

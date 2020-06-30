@@ -33,7 +33,7 @@ public class LogAspect {
     /**
      * 切入点
      */
-    @Pointcut("execution(public * org.example.*.controller..*.*(..))@annotation(org.example.core.common.annotation.Log)")
+    @Pointcut("execution(public * org.example..*.controller..*.*(..))@annotation(org.example.core.common.annotation.Log)")
     public void logPointCut() {
     }
 

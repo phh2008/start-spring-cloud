@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 @Configuration
 public class UserAuthConfig {
 
-    @Value("${start.boot.auth.user.token-header}")
+    @Value("${start.boot.auth.user.token-header:Authorization}")
     private String tokenHeader;
 
     private byte[] pubKeyByte;

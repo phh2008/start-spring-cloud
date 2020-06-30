@@ -15,12 +15,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @FeignClient(name = "cloud-sys")
 public interface SecurityFeign {
 
+    String API_PREFIX = "/security";
+
     /**
      * 获取用户公钥
      *
      * @return
      */
-    @RequestMapping(value = "/security/userPubKey", method = RequestMethod.POST)
+    @RequestMapping(value = API_PREFIX + "/userPubKey", method = RequestMethod.POST)
     Result<byte[]> getUserPublicKey();
 
 

@@ -30,7 +30,7 @@ public enum ResultCodeEnum implements IResultCode {
     BIZ_ERROR("4000", "业务错误"),
     NOT_FOUND("4004", "无法找到资源"),
     METHOD_NOT_ALLOWED("4005", "请求方式不支持"),
-    UNAUTHORIZED("4006", "未授权"),
+    UNAUTHORIZED("4006", "无权限"),
     UNAUTHENTICATED("4007", "未登录，请重新登录认证"),
     AUTH_EXPIRED("4008", "登录过期，请重新登录认证"),
     UNSUPPORTED_MEDIA_TYPE("4015", "不支持的媒体类型"),

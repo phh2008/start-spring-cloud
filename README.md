@@ -2,7 +2,7 @@
 ## 工程结构
 ```
 Start-spring-cloud
-├── cloud-core -- 公用模块
+├── cloud-core -- 框架模块
 ├    ├── core-boot -- springboot通用配置
 ├    ├── core-elasticsearch -- ES封装
 ├    ├── core-common -- 各种baseEntity,mapper,service,result,annotation
@@ -12,10 +12,10 @@ Start-spring-cloud
 ├    ├── code-generator -- 代码生成器
 ├    ├── cloud-admin -- spring-cloud后台管理
 ├── cloud-module -- 业务模块
-├    ├── cloud-auth -- 认证服务
-├    ├── cloud-sys -- 系统服务
-├    ├── cloud-odr -- 订单服务
+├    ├── cloud-auth -- 认证服务(对外提供登录认证API)
+├    ├── cloud-sys -- 系统服务(用户、菜单、角色、权限、字典等基础服务)
+├    ├── cloud-demo -- 示例服务
 ├── cloud-module-api -- 业务模块api(vo、dto、feign)
 ├    ├── cloud-odr-api -- 订单api
-└──  └── cloud-sys-api -- 系统api  
+└──  └── cloud-sys-api -- 系统api
 ```

@@ -8,15 +8,18 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * 无需认证注解
+ * 权限校验
  *
  * @author phh
  * @version V1.0
- * @date 2020/6/28
+ * @date 2020/6/29
  */
 @Target({ElementType.METHOD, ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Inherited
 @Documented
-public @interface WithoutAuthentication {
+public @interface Authorize {
+
+    String value();
+
 }

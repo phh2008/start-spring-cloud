@@ -36,9 +36,9 @@ public class UserContextHandler {
         return map.get(key);
     }
 
-    public static String getUserId() {
+    public static Long getUserId() {
         Object value = get(CommonConst.CONTEXT_KEY_USER_ID);
-        return returnObjectValue(value);
+        return value == null ? null : (Long) value;
     }
 
     public static String getUserName() {

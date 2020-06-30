@@ -4,10 +4,11 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import org.example.sys.config.JwtConfig;
+import org.example.api.sys.feign.SecurityFeign;
 import org.example.core.boot.handler.BaseController;
 import org.example.core.common.annotation.Log;
 import org.example.core.common.result.Result;
+import org.example.sys.config.JwtConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -22,18 +23,18 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @Api(value = "Security", tags = {"Security 配置"})
 @RestController
-@RequestMapping("/security")
-public class SecurityController extends BaseController {
+public class SecurityFeignController extends BaseController implements SecurityFeign {
 
     @Autowired
     private JwtConfig jwtConfig;
 
+    @Override
     @Log("获取公钥")
     @ApiOperation(value = "获取公钥", httpMethod = "POST", response = Result.class)
     @ApiImplicitParams({
             @ApiImplicitParam(name = "t", value = "测试变量", required = false, dataType = "string", paramType = "query"),
     })
-    @RequestMapping(value = "/userPubKey", method = RequestMethod.POST)
+    @RequestMapping(value = API_PREFIX + "/userPubKey", method = RequestMethod.POST)
     public Result<byte[]> getUserPublicKey() {
         return Result.ok(jwtConfig.getUserPubKey());
     }

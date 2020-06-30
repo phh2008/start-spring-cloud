@@ -8,7 +8,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 /**
- * 认证服务
+ * 示例
  *
  * @author phh
  * @version V1.0
@@ -19,11 +19,11 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableDiscoveryClient
 @EnableScheduling
 @SpringBootApplication
-public class OdrApplication {
+public class DemoApplication {
 
 
     public static void main(String[] args) {
-        SpringApplication.run(OdrApplication.class, args);
+        SpringApplication.run(DemoApplication.class, args);
         log.info("ODR服务启动成功！");
     }
 
