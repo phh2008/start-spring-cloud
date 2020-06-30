@@ -18,6 +18,7 @@ import org.springframework.context.expression.BeanFactoryResolver;
 import org.springframework.core.DefaultParameterNameDiscoverer;
 import org.springframework.core.MethodParameter;
 import org.springframework.core.ParameterNameDiscoverer;
+import org.springframework.core.annotation.Order;
 import org.springframework.core.annotation.SynthesizingMethodParameter;
 import org.springframework.expression.Expression;
 import org.springframework.expression.ExpressionParser;
@@ -34,6 +35,7 @@ import java.lang.reflect.Method;
  * @version V1.0
  * @date 2020/6/29
  */
+@Order(2)
 @Aspect
 @Slf4j
 @Component

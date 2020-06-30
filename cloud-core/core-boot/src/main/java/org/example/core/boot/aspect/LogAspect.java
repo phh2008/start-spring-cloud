@@ -13,6 +13,7 @@ import org.aspectj.lang.reflect.MethodSignature;
 import org.example.core.common.annotation.Log;
 import org.example.core.tool.utils.JsonUtils;
 import org.example.core.tool.utils.WebUtils;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
@@ -25,6 +26,7 @@ import java.lang.reflect.Method;
  * @version V1.0
  * @date 2020/6/27
  */
+@Order(1)
 @Aspect
 @Slf4j
 @Component

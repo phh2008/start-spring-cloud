@@ -19,3 +19,10 @@ Start-spring-cloud
 ├    ├── cloud-odr-api -- 订单api
 └──  └── cloud-sys-api -- 系统api
 ```
+
+### 依赖组件
+> 1. nacos 用于注册中心，配置中心
+> 2. mysql nacos 需要用来持久化配置数据
+> 3. redis 用于缓存
+> 4. sentinel 用于熔断降级，sentinel-dashboard.jar 控制台
+

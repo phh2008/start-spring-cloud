@@ -1,12 +1,9 @@
 package org.example.sys.controller;
 
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.example.api.sys.feign.SecurityFeign;
 import org.example.core.boot.handler.BaseController;
-import org.example.core.common.annotation.Log;
 import org.example.core.common.result.Result;
 import org.example.sys.config.JwtConfig;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,11 +26,7 @@ public class SecurityFeignController extends BaseController implements SecurityF
     private JwtConfig jwtConfig;
 
     @Override
-    @Log("获取公钥")
     @ApiOperation(value = "获取公钥", httpMethod = "POST", response = Result.class)
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "t", value = "测试变量", required = false, dataType = "string", paramType = "query"),
-    })
     @RequestMapping(value = API_PREFIX + "/userPubKey", method = RequestMethod.POST)
     public Result<byte[]> getUserPublicKey() {
         return Result.ok(jwtConfig.getUserPubKey());

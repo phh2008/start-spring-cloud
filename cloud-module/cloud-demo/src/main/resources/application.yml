@@ -20,7 +20,12 @@ spring:
     host: localhost
     port: 6379
     password:
-    database: 10
+    database: 0
+  cloud:
+    sentinel:
+      transport:
+        port: 8719
+        dashboard: localhost:8080
 feign:
   httpclient:
     enabled: false
@@ -33,6 +38,8 @@ feign:
       min-request-size: 2048
     response:
       enabled: true
+  sentinel:
+    enabled: true
 logging:
   level:
     org.example: debug
