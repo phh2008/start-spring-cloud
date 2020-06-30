@@ -16,6 +16,9 @@ import org.springframework.context.annotation.Configuration;
 public class JwtConfig {
     @Value("${jwt.rsa-secret}")
     private String userSecret;
+    @Value("${jwt.expire-second:2592000}")
+    private Integer expireSecond;
+
     private byte[] userPubKey;
     private byte[] userPriKey;
 }

@@ -20,6 +20,17 @@ import java.lang.annotation.Target;
 @Documented
 public @interface Authorize {
 
+    /**
+     * 表达式：
+     * permitAll() 可通过，只要用户登录
+     * denyAll() 不可通过，除非是超级管理员 admin
+     * hasRole('xx') 是否有此角色
+     * hasAnyRole('xx') 是否有其中任一角色
+     * hasPermit('xx') 是否有此权限
+     * hasAnyPermit('xx') 是否有其中任一权限
+     *
+     * @return
+     */
     String value();
 
 }

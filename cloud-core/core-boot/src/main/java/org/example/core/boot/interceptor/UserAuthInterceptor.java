@@ -28,7 +28,6 @@ import org.example.core.common.result.ResultCodeEnum;
 import org.example.core.tool.utils.JsonUtils;
 import org.example.core.tool.utils.StringUtils;
 import org.example.core.tool.utils.WebUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
@@ -78,16 +77,14 @@ public class UserAuthInterceptor extends HandlerInterceptorAdapter {
         if (StringUtils.isNotBlank(token)) {
             IJwtInfo info = userAuthHelper.getInfoFromToken(token);
             UserContextHandler.setToken(token);
-            UserContextHandler.setUserId(info.getId());
-            UserContextHandler.setUserName(info.getUserName());
-            UserContextHandler.setRealName(info.getRealName());
+            UserContextHandler.setJwtInfo(info);
             return true;
         }
         log.warn("客户端认证失败，请求接口：{}，请求IP：{}，请求参数：{}",
                 request.getRequestURI(),
                 ServletUtil.getClientIP(request),
                 JsonUtils.writeAsString(request.getParameterMap()));
-        Result<?> result = Result.of(ResultCodeEnum.UNAUTHORIZED);
+        Result<?> result = Result.of(ResultCodeEnum.UNAUTHENTICATED);
         WebUtils.writeJson(response, Objects.requireNonNull(JsonUtils.writeAsString(result)));
         return false;
     }

@@ -10,10 +10,7 @@ package org.example.core.common.constant;
 public interface CommonConst {
 
 
-    String CONTEXT_KEY_USER_ID = "userId";
-    String CONTEXT_KEY_USER_NAME = "userName";
-    String CONTEXT_KEY_REAL_NAME = "realName";
-    String CONTEXT_KEY_USER = "user";
+    String CONTEXT_KEY_JWT_INFO = "jwtInfo";
     String CONTEXT_KEY_USER_TOKEN = "token";
 
 

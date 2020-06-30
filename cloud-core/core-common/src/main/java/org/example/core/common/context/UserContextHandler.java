@@ -2,6 +2,9 @@ package org.example.core.common.context;
 
 import com.alibaba.ttl.TransmittableThreadLocal;
 import org.example.core.common.constant.CommonConst;
+import org.example.core.common.exception.CloudException;
+import org.example.core.common.jwt.IJwtInfo;
+import org.example.core.common.result.ResultCodeEnum;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -36,19 +39,21 @@ public class UserContextHandler {
         return map.get(key);
     }
 
-    public static Long getUserId() {
-        Object value = get(CommonConst.CONTEXT_KEY_USER_ID);
-        return value == null ? null : (Long) value;
+
+    public static IJwtInfo getJwtInfo() {
+        return (IJwtInfo) get(CommonConst.CONTEXT_KEY_JWT_INFO);
     }
 
-    public static String getUserName() {
-        Object value = get(CommonConst.CONTEXT_KEY_USER_NAME);
-        return returnObjectValue(value);
+    public static IJwtInfo getJwtInfoThrow() {
+        IJwtInfo jwtInfo = (IJwtInfo) get(CommonConst.CONTEXT_KEY_JWT_INFO);
+        if (jwtInfo == null) {
+            throw new CloudException(ResultCodeEnum.UNAUTHENTICATED);
+        }
+        return jwtInfo;
     }
 
-    public static String getRealName() {
-        Object value = get(CommonConst.CONTEXT_KEY_REAL_NAME);
-        return returnObjectValue(value);
+    public static void setJwtInfo(IJwtInfo jwtInfo) {
+        set(CommonConst.CONTEXT_KEY_JWT_INFO, jwtInfo);
     }
 
     public static String getToken() {
@@ -60,26 +65,11 @@ public class UserContextHandler {
         set(CommonConst.CONTEXT_KEY_USER_TOKEN, token);
     }
 
-    public static void setUserId(String userId) {
-        set(CommonConst.CONTEXT_KEY_USER_ID, userId);
-    }
 
-    public static void setUserName(String userName) {
-        set(CommonConst.CONTEXT_KEY_USER_NAME, userName);
-    }
-
-    public static void setRealName(String realName) {
-        set(CommonConst.CONTEXT_KEY_REAL_NAME, realName);
-    }
-
-    private static String returnObjectValue(Object value) {
-        return value == null ? null : value.toString();
-    }
-
-    public static void removeToken() {
+    public static void removeByKey(String key) {
         Map<String, Object> map = threadLocal.get();
         if (map != null) {
-            map.remove(CommonConst.CONTEXT_KEY_USER_TOKEN);
+            map.remove(key);
         }
     }
 

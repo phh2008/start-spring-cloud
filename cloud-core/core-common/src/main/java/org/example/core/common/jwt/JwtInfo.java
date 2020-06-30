@@ -18,6 +18,9 @@ public class JwtInfo implements Serializable, IJwtInfo {
     private String realName;
     private Date expireTime;
 
+    public JwtInfo() {
+    }
+
     public JwtInfo(String id, String userName) {
         this.id = id;
         this.userName = userName;

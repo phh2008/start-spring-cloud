@@ -1,5 +1,6 @@
 package org.example.core.common.jwt;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -9,7 +10,7 @@ import java.util.Date;
  * @version V1.0
  * @date 2020/6/24
  */
-public interface IJwtInfo {
+public interface IJwtInfo extends Serializable {
 
     /**
      * 获取用户ID

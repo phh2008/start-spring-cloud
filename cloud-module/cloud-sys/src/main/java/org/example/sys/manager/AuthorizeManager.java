@@ -1,5 +1,6 @@
 package org.example.sys.manager;
 
+import lombok.extern.slf4j.Slf4j;
 import org.example.core.tool.utils.RedisUtils;
 import org.example.support.AuthorizeInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import java.util.List;
  * @version V1.0
  * @date 2020/6/30
  */
+@Slf4j
 @Service
 public class AuthorizeManager {
 
@@ -53,6 +55,7 @@ public class AuthorizeManager {
 
     private AuthorizeInfo doGetAuthorizeInfo(Long userId) {
         //TODO 从DB中获取用户角色与权限集合
+        log.info("从DB中获取用户权限");
         AuthorizeInfo authorizeInfo = new AuthorizeInfo();
         authorizeInfo.addRoles(Arrays.asList("admin", "sales"));
         authorizeInfo.addPermits(Arrays.asList("sys:user:view", "sys:user:add", "sys:user:del"));

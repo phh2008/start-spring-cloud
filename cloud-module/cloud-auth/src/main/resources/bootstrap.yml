@@ -3,6 +3,8 @@ spring:
     name: cloud-auth
   profiles:
     active: @profileActive@
+  main:
+    allow-bean-definition-overriding: true
   cloud:
     nacos:
       discovery:

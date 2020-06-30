@@ -27,7 +27,7 @@ public class AuthorizeHelper {
     private AuthorizeFeign authorizeFeign;
 
     /**
-     * 准许通过，只要用户登录
+     * 可通过，只要用户登录
      *
      * @return boolean
      */
@@ -36,7 +36,7 @@ public class AuthorizeHelper {
     }
 
     /**
-     * 不准许通过，除非是超级管理员
+     * 不可通过，除非是超级管理员
      *
      * @return boolean
      */
@@ -61,9 +61,9 @@ public class AuthorizeHelper {
      * @return boolean
      */
     public boolean hasAnyRole(String... roles) {
-        Long userId = UserContextHandler.getUserId();
+        String userId = UserContextHandler.getJwtInfoThrow().getId();
         CheckAuthorizeDTO dto = new CheckAuthorizeDTO();
-        dto.setUserId(userId);
+        dto.setUserId(Long.valueOf(userId));
         dto.setRoles(Arrays.asList(roles));
         Result<Boolean> result = authorizeFeign.hasAnyRole(dto);
         if (!result.isSuccess()) {
@@ -91,9 +91,9 @@ public class AuthorizeHelper {
      * @date 2020/6/29
      */
     public boolean hasAnyPermit(String... permits) {
-        Long userId = UserContextHandler.getUserId();
+        String userId = UserContextHandler.getJwtInfoThrow().getId();
         CheckAuthorizeDTO dto = new CheckAuthorizeDTO();
-        dto.setUserId(userId);
+        dto.setUserId(Long.valueOf(userId));
         dto.setPermits(Arrays.asList(permits));
         Result<Boolean> result = authorizeFeign.hasAnyPermit(dto);
         if (!result.isSuccess()) {
