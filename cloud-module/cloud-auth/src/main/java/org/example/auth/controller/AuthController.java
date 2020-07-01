@@ -3,12 +3,14 @@ package org.example.auth.controller;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.example.api.sys.feign.AuthenticateFeign;
+import org.example.api.sys.feign.UserFeign;
 import org.example.api.sys.vo.UserInfoVO;
 import org.example.core.boot.handler.BaseController;
 import org.example.core.common.annotation.Log;
 import org.example.core.common.annotation.WithoutAuthentication;
 import org.example.core.common.result.Result;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -28,6 +30,8 @@ public class AuthController extends BaseController {
 
     @Autowired
     private AuthenticateFeign authenticateFeign;
+    @Autowired
+    private UserFeign userFeign;
 
     /**
      * 登录
@@ -42,6 +46,13 @@ public class AuthController extends BaseController {
     @PostMapping("/login")
     public Result<UserInfoVO> login(@RequestParam String username, @RequestParam String password) {
         return authenticateFeign.login(username, password);
+    }
+
+    @Log("获取用户信息")
+    @ApiOperation(value = "获取用户信息", httpMethod = "GET", response = Result.class)
+    @GetMapping("/getInfo")
+    public Result<UserInfoVO> getInfo() {
+        return userFeign.getUserInfo();
     }
 
 

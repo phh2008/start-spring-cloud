@@ -28,6 +28,12 @@ spring:
       transport:
         port: 8719
         dashboard: localhost:8080
+  # 资源国际化
+  messages:
+    encoding: UTF-8
+    cache-duration: 1000s
+    use-code-as-default-message: true
+    basename: i18n.test
 # 针对特定服指定负载均衡策略
 xxxx-server:
   ribbon:

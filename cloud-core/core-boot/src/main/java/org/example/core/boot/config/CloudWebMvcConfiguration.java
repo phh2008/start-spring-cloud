@@ -1,6 +1,7 @@
 package org.example.core.boot.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.example.core.tool.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,11 +17,15 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
+import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * web mvc config
@@ -73,6 +78,28 @@ public class CloudWebMvcConfiguration implements WebMvcConfigurer {
         // hystrix 的静态资源映射
         registry.addResourceHandler("/hystrix/**")
                 .addResourceLocations("classpath:/static/hystrix/");
+    }
+
+    @Bean
+    public LocaleResolver localeResolver() {
+        return new NativeLocaleResolver();
+    }
+
+    public static class NativeLocaleResolver implements LocaleResolver {
+        @Override
+        public Locale resolveLocale(HttpServletRequest request) {
+            String language = request.getParameter("language");
+            Locale locale = Locale.getDefault();
+            if (!StringUtils.isEmpty(language)) {
+                String[] split = language.split("_");
+                locale = new Locale(split[0], split[1]);
+            }
+            return locale;
+        }
+
+        @Override
+        public void setLocale(HttpServletRequest request, HttpServletResponse response, Locale locale) {
+        }
     }
 
 }
