@@ -25,4 +25,5 @@ Start-spring-cloud
 > 2. mysql 因为 nacos需要用来持久化配置数据
 > 3. redis 用于缓存
 > 4. sentinel 用于熔断降级，sentinel-dashboard.jar 控制台
+> 5. 配置参考 cloud-module/cloud-demo 项目下的 application.yml
 

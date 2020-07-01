@@ -11,6 +11,23 @@
     <artifactId>cloud-demo</artifactId>
     <packaging>jar</packaging>
 
+    <dependencies>
+        <!-- mybatis plus -->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid-spring-boot-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <!-- 因本地mysql是8.0 -->
+            <version>8.0.15</version>
+        </dependency>
+    </dependencies>
 
     <build>
         <plugins>

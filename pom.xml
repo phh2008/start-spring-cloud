@@ -35,7 +35,9 @@
         <logback.version>1.2.3</logback.version>
         <lombok.version>1.18.4</lombok.version>
         <mysql.version>5.1.38</mysql.version>
-        <druid.version>1.1.10</druid.version>
+        <postgresql.version>42.2.14</postgresql.version>
+        <sqlserver.version>4.0</sqlserver.version>
+        <druid.version>1.1.22</druid.version>
         <mybatis.plus.starter.version>3.3.2</mybatis.plus.starter.version>
         <mybatis.plus.version>3.3.2</mybatis.plus.version>
         <shiro.version>1.5.3</shiro.version>
@@ -110,6 +112,18 @@
                 <groupId>mysql</groupId>
                 <artifactId>mysql-connector-java</artifactId>
                 <version>${mysql.version}</version>
+            </dependency>
+            <!-- sql server 驱动 -->
+            <dependency>
+                <groupId>com.microsoft.sqlserver</groupId>
+                <artifactId>sqljdbc4</artifactId>
+                <version>${sqlserver.version}</version>
+            </dependency>
+            <!-- postGreSql 驱动 -->
+            <dependency>
+                <groupId>org.postgresql</groupId>
+                <artifactId>postgresql</artifactId>
+                <version>${postgresql.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.google.guava</groupId>

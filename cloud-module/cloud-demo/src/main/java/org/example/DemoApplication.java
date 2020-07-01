@@ -24,7 +24,7 @@ public class DemoApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(DemoApplication.class, args);
-        log.info("ODR服务启动成功！");
+        log.info("Demo服务启动成功！");
     }
 
 }

@@ -16,7 +16,7 @@ import org.springframework.context.annotation.Configuration;
  * @date 2020/6/23
  */
 @Configuration
-@MapperScan({"org.example.**.mapper.**"})
+@MapperScan({"org.example.**.mapper.**", "org.example.**.dao.**"})
 public class MybatisConfiguration {
 
     @Bean
