@@ -44,6 +44,12 @@ Start-spring-cloud
 > 各服务配置参考 cloud-module/cloud-demo 项目下的 application.yml
 > 需要注意的是 nacos 配置中心的 dataId，namespace，group 
 
+### swagger文档地址  
+> http://localhost:port/doc.html
+
+### druid 数据库连接池监控地址
+> http://localhost:port/druid
+
 ### 备注：cloud-sys、cloud-gateway、cloud-demo、cloud-auth 可以启动，但需要先启用以下组件
 > 1. nacos 用于注册中心，配置中心
 > 2. mysql 因为 cloud-demo 整合 Mysql测试
