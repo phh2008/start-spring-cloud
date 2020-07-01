@@ -37,7 +37,7 @@ Start-spring-cloud
 > 1. 链路追踪 zipkin
 > 2. 单元测试用例
 > 3. 性能测试用例
-> 4. redis key命名规范，因为集群下redis是没有db index，需要命名规范来实现 namespace隔离各服务缓存数据
+> 4. redis key命名规范，集群下redis是没有多数据库，需要命名规范来实现 namespace隔离各服务缓存数据，或者使用不同 redis实例存储
 > 5. 错误码编码规范
 
 ### 项目配置
