@@ -28,6 +28,7 @@ Start-spring-cloud
 > 7. 缓存       redis，(spring-cache)
 > 8. 认证       jwt
 > 9. ORM        mybatis-plus
+> 10. druid 数据库连接池与监控
 > 10. 全局异常处理
 > 11. 权限校验
 > 12. API文档     swagger2
