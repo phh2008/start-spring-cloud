@@ -16,16 +16,27 @@ spring:
   jackson:
     date-format: 'yyyy-MM-dd HH:mm:ss'
     time-zone: 'GMT+8'
+  # redis 数据库配置
   redis:
     host: localhost
     port: 6379
     password:
     database: 0
   cloud:
+    # sentinel 控制台地址配置
     sentinel:
       transport:
         port: 8719
         dashboard: localhost:8080
+# 针对特定服指定负载均衡策略
+xxxx-server:
+  ribbon:
+    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RoundRobinRule
+# ribbon超时间设置，默认是1秒
+ribbon:
+  ConnectTimeout: 5000
+  ReadTimeout: 5000
+# feign 配置
 feign:
   httpclient:
     enabled: false
@@ -38,17 +49,21 @@ feign:
       min-request-size: 2048
     response:
       enabled: true
+  # openfeign 开启sentinel
   sentinel:
     enabled: true
+# 日志输出级别设置
 logging:
   level:
     org.example: debug
+# swagger 日志标题和版本设置
 swagger:
   api:
-    title: 'cloud-sys服务'
+    title: 'cloud-demo 服务'
     version: 'V.1.0.0'
 start:
   boot:
+    # 异步线程池配置
     async:
       corePoolSize: 8
       maxPoolSize: 30
@@ -56,7 +71,9 @@ start:
       keepAliveSeconds: 300
     auth:
       user:
+        # token 请求头 key 设置
         token-header: Authorization
+      # 认证拦截器要排除的 url配置
       excludePatterns:
         - /test/**
         - /static/**
@@ -64,7 +81,9 @@ start:
         - /security/userPubKey
         - /swagger-ui.html
     xss:
+      # 是否开启 xss 过滤
       enable: false
+      # xss 过滤要排除的 url
       excludePatterns:
         - /test/**
         - /static/**

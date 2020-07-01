@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.concurrent.TimeUnit;
+
 /**
  * 登录认证
  *
@@ -50,6 +52,7 @@ public class AuthenticateFeignController extends BaseController implements Authe
         String token = JwtHelper.createToken(jwtInfo, jwtConfig.getUserPriKey(), jwtConfig.getExpireSecond());
         //返回token
         userInfoVO.setToken(token);
+        System.out.println("========================222222=================================");
         return Result.ok(userInfoVO);
     }
 

@@ -1,0 +1,6 @@
+cloud-sys:
+  ribbon:
+    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RoundRobinRule
+ribbon:
+  ConnectTimeout: 5000
+  ReadTimeout: 5000
