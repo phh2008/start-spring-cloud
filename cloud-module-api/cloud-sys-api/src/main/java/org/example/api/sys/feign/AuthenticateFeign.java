@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @version V1.0
  * @date 2020/6/30
  */
-@FeignClient(name = "cloud-sys")
+@FeignClient(name = "cloud-sys", fallback = AuthenticateFeignFallback.class)
 public interface AuthenticateFeign {
 
 
