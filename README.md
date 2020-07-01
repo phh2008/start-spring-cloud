@@ -20,10 +20,10 @@ Start-spring-cloud
 └──  └── cloud-sys-api -- 系统api
 ```
 
-### 依赖组件
+### cloud-sys、cloud-gateway、cloud-demo、cloud-auth 可以启动，但需要以下组件
 > 1. nacos 用于注册中心，配置中心
-> 2. mysql 因为 nacos需要用来持久化配置数据
+> 2. mysql 因为 cloud-demo 整合 Mysql测试
 > 3. redis 用于缓存
-> 4. sentinel 用于熔断降级，sentinel-dashboard.jar 控制台
-> 5. 配置参考 cloud-module/cloud-demo 项目下的 application.yml
+> 4. sentinel-dashboard.jar 控制台(可选，不启动也可以)
+> 5. 各服务配置参考 cloud-module/cloud-demo 项目下的 application.yml
 
