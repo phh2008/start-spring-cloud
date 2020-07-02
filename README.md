@@ -25,20 +25,20 @@ Start-spring-cloud
 > 4. 熔断降级   sentinel
 > 5. 注册中心   nacos
 > 6. 配置中心   nacos
-> 7. 缓存       redis，(spring-cache)
-> 8. 认证       jwt
-> 9. ORM        mybatis-plus
-> 10. druid 数据库连接池与监控
-> 10. 全局异常处理
-> 11. 权限校验
-> 12. API文档     swagger2
+> 7. 链路追踪   spring-sleuth+zipkin
+> 8. 缓存       redis，(spring-cache)
+> 9. 认证       jwt
+> 10. ORM        mybatis-plus
+> 11. druid 数据库连接池与监控
+> 12. 全局异常处理
+> 13. 权限校验
+> 14. API文档     swagger2
 
 ### 待完善
-> 1. 链路追踪 zipkin
-> 2. 单元测试用例
-> 3. 性能测试用例
-> 4. redis key命名规范，集群下redis是没有多数据库，需要命名规范来实现 namespace隔离各服务缓存数据，或者使用不同 redis实例存储
-> 5. 错误码编码规范
+> 1. 单元测试用例
+> 2. 性能测试用例
+> 3. redis key命名规范，集群下redis是没有多数据库，需要命名规范来实现 namespace隔离各服务缓存数据，或者使用不同 redis实例存储
+> 4. 错误码编码规范
 
 ### 项目配置
 > 各服务配置参考 cloud-module/cloud-demo 项目下的 application.yml
@@ -54,5 +54,6 @@ Start-spring-cloud
 > 1. nacos 用于注册中心，配置中心
 > 2. mysql 因为 cloud-demo 整合 Mysql测试
 > 3. redis 用于缓存
-> 4. sentinel-dashboard.jar 控制台(可选，不启动也可以)
+> 4. zipkin-server 链路追踪数据收集
+> 5. sentinel-dashboard.jar 控制台(可选，不启动也可以)
 

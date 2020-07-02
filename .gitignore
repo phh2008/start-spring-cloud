@@ -89,5 +89,5 @@ fabric.properties
 *.iml
 */**/*.iml
 .idea/
-*/**/*.sql
+# */**/*.sql
 rebel.xml
