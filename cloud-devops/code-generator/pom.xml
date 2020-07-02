@@ -33,7 +33,7 @@
             <artifactId>mysql-connector-java</artifactId>
             <!--<version>5.1.38</version>-->
             <!-- 因本地mysql是8.0 -->
-            <version>8.0.15</version>
+            <version>8.0.16</version>
         </dependency>
         <!-- sql server 驱动 -->
         <dependency>
