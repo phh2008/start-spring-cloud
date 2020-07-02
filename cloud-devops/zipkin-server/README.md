@@ -2,6 +2,9 @@
 ### zipkin github 主页
 github https://github.com/openzipkin/zipkin
 
+### 当前项目使用的版本：
+V2.21.4
+
 ### 使用方法
 https://github.com/openzipkin/zipkin/tree/master/zipkin-server
 
