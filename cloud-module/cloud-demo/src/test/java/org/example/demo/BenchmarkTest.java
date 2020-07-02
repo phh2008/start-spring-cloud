@@ -5,6 +5,10 @@ import org.openjdk.jmh.annotations.BenchmarkMode;
 import org.openjdk.jmh.annotations.Measurement;
 import org.openjdk.jmh.annotations.Mode;
 import org.openjdk.jmh.annotations.OutputTimeUnit;
+import org.openjdk.jmh.annotations.Param;
+import org.openjdk.jmh.annotations.Scope;
+import org.openjdk.jmh.annotations.State;
+import org.openjdk.jmh.annotations.Warmup;
 import org.openjdk.jmh.runner.Runner;
 import org.openjdk.jmh.runner.RunnerException;
 import org.openjdk.jmh.runner.options.Options;
@@ -19,15 +23,20 @@ import java.util.concurrent.TimeUnit;
  * @version V1.0
  * @date 2020/7/2
  */
+@Warmup(iterations = 5)
+@State(Scope.Benchmark)
 @BenchmarkMode(Mode.Throughput)
 @Measurement(iterations = 10, time = 5, timeUnit = TimeUnit.SECONDS)
 @OutputTimeUnit(TimeUnit.MILLISECONDS)
 public class BenchmarkTest {
 
+    @Param(value = {"5", "10", "15"})
+    private int length;
+
     @Benchmark
     public String testStringAdd() {
         String a = "";
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < length; i++) {
             a += i;
         }
         return a;
@@ -36,7 +45,7 @@ public class BenchmarkTest {
     @Benchmark
     public String testStringBuilderAdd() {
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < length; i++) {
             sb.append(i);
         }
         return sb.toString();
