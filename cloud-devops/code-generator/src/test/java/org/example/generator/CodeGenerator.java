@@ -14,6 +14,7 @@ import com.baomidou.mybatisplus.generator.config.TemplateConfig;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
+import org.example.core.common.mp.base.BaseColumnEntity;
 import org.example.core.common.mp.base.BaseEntity;
 import org.example.core.common.mp.base.BaseService;
 import org.example.core.common.mp.base.BaseServiceImpl;
@@ -155,7 +156,7 @@ public class CodeGenerator {
         strategy.setRestControllerStyle(true);
 
         //TODO 公共父类
-        strategy.setSuperEntityClass(BaseEntity.class);
+        strategy.setSuperEntityClass(BaseColumnEntity.class);
         strategy.setSuperServiceClass(BaseService.class);
         strategy.setSuperServiceImplClass(BaseServiceImpl.class);
         strategy.setSuperControllerClass("org.example.core.boot.handler.BaseController");

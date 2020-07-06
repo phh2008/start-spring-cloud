@@ -51,4 +51,12 @@ public class UserController extends BaseController {
         return Result.ok(user);
     }
 
+
+    @ApiOperation(value = "添加随机用户2", httpMethod = "GET", response = Result.class)
+    @GetMapping("/addRandom2")
+    public Result<User> addRandom2() {
+        User user = userService.createRandomUser();
+        return Result.ok(user);
+    }
+
 }

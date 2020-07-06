@@ -13,4 +13,16 @@ import org.example.demo.entity.User;
  */
 public interface IUserService extends BaseService<User> {
 
+    /**
+     * 测试 创建随机用户
+     *
+     * @param
+     * @return
+     * @throws
+     * @author phh
+     * @date 2020/7/6
+     * @version V1.0
+     */
+    User createRandomUser();
+
 }

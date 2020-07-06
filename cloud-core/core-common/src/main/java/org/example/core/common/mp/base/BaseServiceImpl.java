@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.example.core.common.context.UserContextHandler;
 import org.example.core.common.jwt.IJwtInfo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -16,6 +18,8 @@ import java.util.List;
  * @date 2020/6/23
  */
 public class BaseServiceImpl<M extends BaseMapper<T>, T extends BaseEntity> extends ServiceImpl<M, T> implements BaseService<T> {
+
+    protected Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Override
     public boolean save(T entity) {
