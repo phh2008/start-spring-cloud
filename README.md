@@ -33,12 +33,11 @@ Start-spring-cloud
 > 12. 全局异常处理
 > 13. 权限校验
 > 14. API文档     swagger2
+> 15. 分布式事务 seata V1.2.0
 
 ### 待完善
-> 1. 单元测试用例
-> 2. 性能测试用例
-> 3. redis key命名规范，集群下redis是没有多数据库，需要命名规范来实现 namespace隔离各服务缓存数据，或者使用不同 redis实例存储
-> 4. 错误码编码规范
+> 1. redis key命名规范，集群下redis是没有多数据库，需要命名规范来实现 namespace隔离各服务缓存数据，或者使用不同 redis实例存储
+> 2. 错误码编码规范
 
 ### 项目配置
 > 各服务配置参考 cloud-module/cloud-demo 项目下的 application.yml
@@ -56,4 +55,7 @@ Start-spring-cloud
 > 3. redis 用于缓存
 > 4. zipkin-server 链路追踪数据收集
 > 5. sentinel-dashboard.jar 控制台(可选，不启动也可以)
+> 6. 启用分布式事务，需要启动 seata 服务端
+
+
 
