@@ -14,7 +14,7 @@
     <dependencies>
         <dependency>
             <groupId>org.example</groupId>
-            <artifactId>cloud-authc</artifactId>
+            <artifactId>core-authc</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
         <!-- mybatis plus -->
