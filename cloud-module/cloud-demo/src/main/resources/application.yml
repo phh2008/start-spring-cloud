@@ -122,9 +122,10 @@ logging:
     org.example: debug
 # swagger 日志标题和版本设置
 swagger:
+  enable: true
   api:
     title: 'cloud-demo 服务'
-    version: 'V.1.0.0'
+    version: 'V1.0.0'
 # mybatis-plus配置
 mybatis-plus:
   mapper-locations: classpath:/mapper/**/*Mapper.xml

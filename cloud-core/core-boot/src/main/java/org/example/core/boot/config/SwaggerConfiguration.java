@@ -2,6 +2,7 @@ package org.example.core.boot.config;
 
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
@@ -20,6 +21,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  * @date 2020/6/23
  */
 @Configuration
+@ConditionalOnProperty(value = "swagger.enable", havingValue = "true")
 @EnableSwagger2
 public class SwaggerConfiguration {
 
