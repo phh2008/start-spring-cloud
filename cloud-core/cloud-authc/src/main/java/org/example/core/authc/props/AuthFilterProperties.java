@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.example.core.boot.props;
+package org.example.core.authc.props;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -29,7 +29,7 @@ import java.util.List;
  * @date 2020/6/28
  */
 @Data
-@ConfigurationProperties("start.boot.auth")
+@ConfigurationProperties("auth")
 public class AuthFilterProperties {
 
     private final List<String> excludePatterns = new ArrayList<>();

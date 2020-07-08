@@ -1,8 +1,8 @@
-package org.example.core.boot.runner;
+package org.example.core.authc.runner;
 
 import lombok.extern.slf4j.Slf4j;
-import org.example.api.sys.feign.SecurityFeign;
-import org.example.core.boot.config.UserAuthConfig;
+import org.example.core.authc.config.UserAuthConfig;
+import org.example.core.authc.feign.AuthFeign;
 import org.example.core.common.result.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -24,7 +24,7 @@ public class AuthClientRunner implements CommandLineRunner {
     private UserAuthConfig userAuthConfig;
 
     @Autowired
-    private SecurityFeign securityFeign;
+    private AuthFeign authFeign;
 
     @Override
     public void run(String... args) {
@@ -43,7 +43,7 @@ public class AuthClientRunner implements CommandLineRunner {
     }
 
     private void loadUserPubKey() {
-        Result<byte[]> resp = securityFeign.getUserPublicKey();
+        Result<byte[]> resp = authFeign.getUserPublicKey();
         if (resp.isSuccess()) {
             this.userAuthConfig.setPubKeyByte(resp.getData());
         }

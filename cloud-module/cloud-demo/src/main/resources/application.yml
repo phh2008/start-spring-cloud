@@ -157,30 +157,29 @@ seata:
       namespace: seata
       cluster: default
 # 自定义配置
-start:
-  boot:
-    # 异步线程池配置
-    async:
-      corePoolSize: 8
-      maxPoolSize: 30
-      queueCapacity: 10000
-      keepAliveSeconds: 300
-    auth:
-      user:
-        # token 请求头 key 设置
-        token-header: Authorization
-      # 认证拦截器要排除的 url配置
-      excludePatterns:
-        - /test/**
-        - /static/**
-        - /public/**
-        - /security/userPubKey
-        - /swagger-ui.html
-    xss:
-      # 是否开启 xss 过滤
-      enable: false
-      # xss 过滤要排除的 url
-      excludePatterns:
-        - /test/**
-        - /static/**
-        - /public/**
+# 异步线程池配置
+async:
+  corePoolSize: 8
+  maxPoolSize: 30
+  queueCapacity: 10000
+  keepAliveSeconds: 300
+auth:
+  service-name: cloud-sys
+  user:
+    # token 请求头 key 设置
+    token-header: Authorization
+  # 认证拦截器要排除的 url配置
+  excludePatterns:
+    - /test/**
+    - /static/**
+    - /public/**
+    - /userPubKey
+    - /swagger-ui.html
+xss:
+  # 是否开启 xss 过滤
+  enable: false
+  # xss 过滤要排除的 url
+  excludePatterns:
+    - /test/**
+    - /static/**
+    - /public/**

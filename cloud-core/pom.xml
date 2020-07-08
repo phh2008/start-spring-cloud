@@ -15,6 +15,7 @@
         <module>core-elasticsearch</module>
         <module>core-common</module>
         <module>core-boot</module>
+        <module>cloud-authc</module>
     </modules>
 
 

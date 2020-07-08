@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.example.core.boot.interceptor;
+package org.example.core.authc.interceptor;
 
 import cn.hutool.extra.servlet.ServletUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.example.core.boot.component.UserAuthHelper;
-import org.example.core.boot.config.UserAuthConfig;
+import org.example.core.authc.component.UserAuthHelper;
+import org.example.core.authc.config.UserAuthConfig;
 import org.example.core.common.annotation.WithoutAuthentication;
 import org.example.core.common.context.UserContextHandler;
 import org.example.core.common.jwt.IJwtInfo;

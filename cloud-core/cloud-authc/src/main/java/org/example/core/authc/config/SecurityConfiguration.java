@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.example.core.boot.config;
+package org.example.core.authc.config;
 
 
-import org.example.core.boot.component.UserAuthHelper;
-import org.example.core.boot.interceptor.UserAuthInterceptor;
-import org.example.core.boot.props.AuthFilterProperties;
+import org.example.core.authc.component.UserAuthHelper;
+import org.example.core.authc.interceptor.UserAuthInterceptor;
+import org.example.core.authc.props.AuthFilterProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;

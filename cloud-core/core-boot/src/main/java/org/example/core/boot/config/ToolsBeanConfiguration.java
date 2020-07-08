@@ -1,6 +1,5 @@
 package org.example.core.boot.config;
 
-import org.example.core.boot.component.UserAuthHelper;
 import org.example.core.tool.utils.SpringContextUtils;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

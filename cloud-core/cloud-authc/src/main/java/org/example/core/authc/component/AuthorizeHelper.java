@@ -1,10 +1,10 @@
-package org.example.core.boot.component;
+package org.example.core.authc.component;
 
 import lombok.extern.slf4j.Slf4j;
-import org.example.api.sys.dto.CheckAuthorizeDTO;
-import org.example.api.sys.feign.AuthorizeFeign;
+import org.example.core.authc.feign.AuthFeign;
 import org.example.core.common.constant.RoleConst;
 import org.example.core.common.context.UserContextHandler;
+import org.example.core.common.dto.CheckAuthorizeDTO;
 import org.example.core.common.exception.CloudException;
 import org.example.core.common.result.Result;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,7 @@ import java.util.Arrays;
 public class AuthorizeHelper {
 
     @Autowired
-    private AuthorizeFeign authorizeFeign;
+    private AuthFeign authFeign;
 
     /**
      * 可通过，只要用户登录
@@ -65,7 +65,7 @@ public class AuthorizeHelper {
         CheckAuthorizeDTO dto = new CheckAuthorizeDTO();
         dto.setUserId(Long.valueOf(userId));
         dto.setRoles(Arrays.asList(roles));
-        Result<Boolean> result = authorizeFeign.hasAnyRole(dto);
+        Result<Boolean> result = authFeign.hasAnyRole(dto);
         if (!result.isSuccess()) {
             throw new CloudException(result.getCode(), result.getMsg());
         }
@@ -95,7 +95,7 @@ public class AuthorizeHelper {
         CheckAuthorizeDTO dto = new CheckAuthorizeDTO();
         dto.setUserId(Long.valueOf(userId));
         dto.setPermits(Arrays.asList(permits));
-        Result<Boolean> result = authorizeFeign.hasAnyPermit(dto);
+        Result<Boolean> result = authFeign.hasAnyPermit(dto);
         if (!result.isSuccess()) {
             throw new CloudException(result.getCode(), result.getMsg());
         }

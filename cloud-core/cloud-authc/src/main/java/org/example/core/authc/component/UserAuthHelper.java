@@ -1,11 +1,11 @@
-package org.example.core.boot.component;
+package org.example.core.authc.component;
 
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureException;
 import io.jsonwebtoken.UnsupportedJwtException;
 import lombok.extern.slf4j.Slf4j;
-import org.example.core.boot.config.UserAuthConfig;
+import org.example.core.authc.config.UserAuthConfig;
 import org.example.core.common.exception.CloudException;
 import org.example.core.common.jwt.IJwtInfo;
 import org.example.core.common.jwt.JwtHelper;

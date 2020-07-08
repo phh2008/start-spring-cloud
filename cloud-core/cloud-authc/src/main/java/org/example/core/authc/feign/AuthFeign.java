@@ -1,6 +1,6 @@
-package org.example.api.sys.feign;
+package org.example.core.authc.feign;
 
-import org.example.api.sys.dto.CheckAuthorizeDTO;
+import org.example.core.common.dto.CheckAuthorizeDTO;
 import org.example.core.common.result.Result;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -12,10 +12,19 @@ import org.springframework.web.bind.annotation.RequestMethod;
  *
  * @author phh
  * @version V1.0
- * @date 2020/6/29
+ * @date 2020/7/8
  */
-@FeignClient(name = "cloud-sys")
-public interface AuthorizeFeign {
+@FeignClient(name = "${auth.service-name}")
+public interface AuthFeign {
+
+
+    /**
+     * 获取jwt公钥
+     *
+     * @return
+     */
+    @RequestMapping(value = "/userPubKey", method = RequestMethod.POST)
+    Result<byte[]> getUserPublicKey();
 
     /**
      * 是否有其中任一角色
@@ -34,6 +43,5 @@ public interface AuthorizeFeign {
      */
     @RequestMapping(value = "/authorize/hasAnyPermit", method = RequestMethod.POST)
     Result<Boolean> hasAnyPermit(@RequestBody CheckAuthorizeDTO dto);
-
 
 }

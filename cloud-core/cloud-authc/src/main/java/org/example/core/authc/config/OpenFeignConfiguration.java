@@ -1,7 +1,7 @@
-package org.example.core.boot.config;
+package org.example.core.authc.config;
 
 import feign.RequestInterceptor;
-import org.example.core.boot.openfeign.FeignRequestInterceptor;
+import org.example.core.authc.interceptor.FeignRequestInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

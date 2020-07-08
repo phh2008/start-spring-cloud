@@ -3,6 +3,7 @@
 ```
 Start-spring-cloud
 ├── cloud-core -- 框架模块
+├    ├── core-authc -- 认证与授权配置
 ├    ├── core-boot -- springboot通用配置
 ├    ├── core-elasticsearch -- ES封装
 ├    ├── core-common -- 各种baseEntity,mapper,service,result,annotation

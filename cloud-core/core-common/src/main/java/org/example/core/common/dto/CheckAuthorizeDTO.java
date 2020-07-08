@@ -1,4 +1,4 @@
-package org.example.api.sys.dto;
+package org.example.core.common.dto;
 
 import lombok.Data;
 import lombok.ToString;

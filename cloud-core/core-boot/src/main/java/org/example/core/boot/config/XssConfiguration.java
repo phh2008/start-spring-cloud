@@ -21,7 +21,7 @@ import java.util.Map;
  * @date 2020/6/24
  */
 @Configuration
-@ConditionalOnProperty(value = "start.boot.xss.enable", havingValue = "true")
+@ConditionalOnProperty(value = "xss.enable", havingValue = "true")
 @EnableConfigurationProperties({XssProperties.class})
 public class XssConfiguration {
 

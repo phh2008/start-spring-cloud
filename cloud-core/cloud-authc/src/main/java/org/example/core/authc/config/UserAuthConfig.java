@@ -1,4 +1,4 @@
-package org.example.core.boot.config;
+package org.example.core.authc.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 @Configuration
 public class UserAuthConfig {
 
-    @Value("${start.boot.auth.user.token-header:Authorization}")
+    @Value("${auth.user.token-header:Authorization}")
     private String tokenHeader;
 
     private byte[] pubKeyByte;

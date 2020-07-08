@@ -1,11 +1,11 @@
-package org.example.core.boot.aspect;
+package org.example.core.authc.aspect;
 
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.example.core.boot.component.AuthorizeHelper;
+import org.example.core.authc.component.AuthorizeHelper;
 import org.example.core.common.annotation.Authorize;
 import org.example.core.common.exception.CloudException;
 import org.example.core.common.result.ResultCodeEnum;

@@ -1,9 +1,9 @@
-package org.example.core.boot.openfeign;
+package org.example.core.authc.interceptor;
 
 import feign.RequestInterceptor;
 import feign.RequestTemplate;
 import lombok.extern.slf4j.Slf4j;
-import org.example.core.boot.config.UserAuthConfig;
+import org.example.core.authc.config.UserAuthConfig;
 import org.example.core.common.context.UserContextHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 
