@@ -1,7 +1,6 @@
 package org.example.sys.controller;
 
 import io.swagger.annotations.Api;
-import org.example.api.sys.feign.AuthenticateFeign;
 import org.example.api.sys.vo.UserInfoVO;
 import org.example.core.boot.handler.BaseController;
 import org.example.core.common.annotation.WithoutAuthentication;
@@ -16,8 +15,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.concurrent.TimeUnit;
-
 /**
  * 登录认证
  *
@@ -28,7 +25,7 @@ import java.util.concurrent.TimeUnit;
 @WithoutAuthentication
 @Api(value = "Authenticate", tags = {"Authenticate 登录认证"})
 @RestController
-public class AuthenticateFeignController extends BaseController implements AuthenticateFeign {
+public class AuthenticateFeignController extends BaseController {
 
     @Autowired
     private JwtConfig jwtConfig;
@@ -36,7 +33,6 @@ public class AuthenticateFeignController extends BaseController implements Authe
     private RedisUtils redisUtils;
 
 
-    @Override
     @RequestMapping(value = "/authenticate/login", method = RequestMethod.POST)
     public Result<UserInfoVO> login(@RequestParam String username, @RequestParam String password) {
         //TODO 校验用户名密码

@@ -50,7 +50,7 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
         Result<LogDTO> result = logFeign.add(logDto);
         this.logger.info("invoke log feign , result {}, info {}", result.isSuccess(), result.getData());
         //模拟出错，测试是否回滚事务
-        int a=10/0;
+        int a = 10 / 0;
         return user;
     }
 

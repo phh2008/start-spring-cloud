@@ -58,5 +58,17 @@ Start-spring-cloud
 > 5. sentinel-dashboard.jar 控制台(可选，不启动也可以)
 > 6. 启用分布式事务，需要启动 seata 服务端
 
+### 本项目版本号修改
+> 1.修改最外层 pom.xml 中的 <version>1.0-SNAPSHOT</version>  
+> 2.在项目根目录执行 mvn clean -N versions:update-child-modules
+> 执行完以上步骤会把所有子项目中的 parent 节点中的 version 改为统一版本号  
+
+### 打包
+> 开发环境 mvn clean install -Dmaven.test.skip=true -Pdev  
+> 测试环境 mvn clean install -Dmaven.test.skip=true -Ptest  
+> 生产环境 mvn clean install -Dmaven.test.skip=true -Pprd  
+> 不同环境具体查看顶层的 pom.xml 中配置的 profiles
+
+
 
 
