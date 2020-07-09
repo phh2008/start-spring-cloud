@@ -1,5 +1,6 @@
 package org.example.demo.service.impl;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.seata.spring.annotation.GlobalTransactional;
 import org.example.api.sys.dto.LogDTO;
 import org.example.api.sys.feign.LogFeign;
@@ -11,6 +12,8 @@ import org.example.demo.entity.User;
 import org.example.demo.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Map;
 
 /**
  * <p>
@@ -52,6 +55,11 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
         //模拟出错，测试是否回滚事务
         int a = 10 / 0;
         return user;
+    }
+
+    @Override
+    public Page<User> queryPage(Page<User> page, Map<String, Object> param) {
+        return this.baseMapper.queryPage(page,param);
     }
 
 

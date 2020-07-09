@@ -1,7 +1,10 @@
 package org.example.demo.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.example.core.common.mp.base.BaseService;
 import org.example.demo.entity.User;
+
+import java.util.Map;
 
 /**
  * <p>
@@ -24,5 +27,15 @@ public interface IUserService extends BaseService<User> {
      * @version V1.0
      */
     User createRandomUser();
+
+
+    /**
+     * 分页
+     *
+     * @param page
+     * @param param
+     * @return
+     */
+    Page<User> queryPage(Page<User> page, Map<String, Object> param);
 
 }
