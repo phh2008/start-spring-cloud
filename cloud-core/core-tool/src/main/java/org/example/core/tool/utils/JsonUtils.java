@@ -8,6 +8,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
@@ -15,6 +16,7 @@ import com.fasterxml.jackson.datatype.jsr310.deser.LocalTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalTimeSerializer;
+import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 
 import java.math.BigDecimal;
@@ -197,8 +199,10 @@ public class JsonUtils {
             javaTimeModule.addSerializer(BigDecimal.class, ToStringSerializer.instance);
             javaTimeModule.addSerializer(Long.class, ToStringSerializer.instance);
             javaTimeModule.addSerializer(Long.TYPE, ToStringSerializer.instance);
+            objectMapper.registerModule(new ParameterNamesModule());
+            objectMapper.registerModule(new Jdk8Module());
             objectMapper.registerModule(javaTimeModule);
-            objectMapper.findAndRegisterModules();
+            //objectMapper.findAndRegisterModules();
             return objectMapper;
         }
     }

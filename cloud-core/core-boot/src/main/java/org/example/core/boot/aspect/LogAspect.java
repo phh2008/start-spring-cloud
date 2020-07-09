@@ -10,14 +10,23 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.example.core.boot.support.LogAspectHandler;
 import org.example.core.common.annotation.Log;
+import org.example.core.common.context.UserContextHandler;
+import org.example.core.common.dto.LogInfo;
+import org.example.core.common.jwt.IJwtInfo;
 import org.example.core.tool.utils.JsonUtils;
 import org.example.core.tool.utils.WebUtils;
+import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
+import java.time.LocalDateTime;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ForkJoinPool;
 
 /**
  * 日志切面
@@ -31,6 +40,15 @@ import java.lang.reflect.Method;
 @Slf4j
 @Component
 public class LogAspect {
+
+    private LogAspectHandler logAspectHandler;
+
+    private Executor taskExecutor;
+
+    public LogAspect(ObjectProvider<LogAspectHandler> handlers, ObjectProvider<Executor> taskExecutor) {
+        this.logAspectHandler = handlers.getIfAvailable();
+        this.taskExecutor = taskExecutor.getIfAvailable();
+    }
 
     /**
      * 切入点
@@ -47,18 +65,22 @@ public class LogAspect {
     @Before("logPointCut()")
     public void before(JoinPoint joinPoint) {
         // 保存日志
-        saveRequestLog(joinPoint);
+        handleRequestLog(joinPoint, null);
     }
 
-    private void saveRequestLog(JoinPoint joinPoint) {
+    private void handleRequestLog(JoinPoint joinPoint, Throwable ex) {
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();
         Method method = signature.getMethod();
         Log action = method.getAnnotation(Log.class);
         if (action == null) {
             return;
         }
+        LogInfo logInfo = new LogInfo();
+        //请求时间
+        logInfo.setRequestTime(LocalDateTime.now());
         //方法名称
-        String methodName = method.getName();
+        String methodName = method.getDeclaringClass().getName() + "." + method.getName() + "()";
+        logInfo.setMethod(methodName);
         //请求参数
         String arguments = "";
         Object[] args = joinPoint.getArgs();
@@ -67,14 +89,18 @@ public class LogAspect {
         } catch (Exception e) {
             log.error("parse json error", e);
         }
+        logInfo.setArgs(arguments);
         //日志描述
         String description = action.value();
+        logInfo.setDescription(description);
         // 获取request
         HttpServletRequest request = WebUtils.getRequest();
         //请求URL
         String url = request.getRequestURL().toString();
+        logInfo.setUrl(url);
         // 设置IP地址
         String ipAddr = ServletUtil.getClientIP(request);
+        logInfo.setIp(ipAddr);
         // 设置浏览器和设备系统
         String userAgentHeader = request.getHeader("User-Agent");
         UserAgent userAgent = UserAgentParser.parse(userAgentHeader);
@@ -83,18 +109,24 @@ public class LogAspect {
         String browserName = browser.getName() + ":" + browser.getVersion(userAgentHeader);
         //设备系统
         String os = userAgent.getPlatform().getName();
-
-        log.info("请求方法：{}", methodName);
-        log.info("请求参数：{}", arguments);
-        log.info("请求描术：{}", description);
-        log.info("请求URL：{}", url);
-        log.info("请求IP地址：{}", ipAddr);
-        log.info("请求浏览器：{}", browserName);
-        log.info("请求设备系统：{}", os);
-
-        //TODO 当前用户信息
-
-        //TODO 异步保存系统日志
+        logInfo.setBrowser(browserName);
+        logInfo.setOs(os);
+        //异常
+        logInfo.setException(ex);
+        //当前用户信息
+        IJwtInfo jwtInfo = UserContextHandler.getJwtInfo();
+        if (jwtInfo != null) {
+            logInfo.setUserId(jwtInfo.getId());
+            logInfo.setUsername(jwtInfo.getUserName());
+            logInfo.setRealName(jwtInfo.getRealName());
+        }
+        log.info("logInfo {}", logInfo);
+        //处理日志信息
+        if (this.logAspectHandler != null) {
+            CompletableFuture.runAsync(() -> {
+                this.logAspectHandler.asyncHandle(logInfo);
+            }, taskExecutor != null ? taskExecutor : ForkJoinPool.commonPool());
+        }
     }
 
 }

@@ -4,6 +4,7 @@ package org.example.demo.controller;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.example.core.boot.handler.BaseController;
+import org.example.core.common.annotation.Log;
 import org.example.core.common.annotation.WithoutAuthentication;
 import org.example.core.common.result.Result;
 import org.example.core.tool.utils.StringUtils;
@@ -33,6 +34,7 @@ public class UserController extends BaseController {
     @Autowired
     private IUserService userService;
 
+    @Log("用户例表")
     @ApiOperation(value = "用户例表", httpMethod = "GET", response = Result.class)
     @GetMapping("/list")
     public Result<List<User>> list() {
