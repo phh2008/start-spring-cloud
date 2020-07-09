@@ -17,7 +17,6 @@ import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalTimeSerializer;
 import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
-import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
@@ -139,53 +138,48 @@ public class JsonUtils {
     }
 
     private static class JacksonHolder {
-        private static ObjectMapper INSTANCE = new JacksonObjectMapper().getJsonObjectMapper();
+        private static ObjectMapper INSTANCE = new JacksonObjectMapper();
     }
 
-    public static class JacksonObjectMapper {
+    public static class JacksonObjectMapper extends ObjectMapper {
         private String dateFormat = "yyyy-MM-dd HH:mm:ss";
         private String timeZone = TimeZone.getDefault().getID();
 
         public JacksonObjectMapper() {
+            super();
+            this.initObjectMapper();
         }
 
         public JacksonObjectMapper(String dateFormat, String timeZone) {
+            super();
             this.dateFormat = dateFormat;
             this.timeZone = timeZone;
+            this.initObjectMapper();
         }
 
-        public ObjectMapper getXmlObjectMapper() {
-            //TODO
-            return null;
-        }
 
-        public synchronized ObjectMapper getJsonObjectMapper() {
-            //创建ObjectMapper
-            ObjectMapper objectMapper = Jackson2ObjectMapperBuilder
-                    .json()
-                    .featuresToDisable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
-                    .build();
+        private void initObjectMapper() {
             //设置地点
-            objectMapper.setLocale(Locale.getDefault());
+            this.setLocale(Locale.getDefault());
             //去掉默认的时间戳格式
-            objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
+            this.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
             //设置时区
             TimeZone tz = timeZone == null ? TimeZone.getTimeZone(ZoneId.systemDefault()) : TimeZone.getTimeZone(timeZone);
-            objectMapper.setTimeZone(tz);
+            this.setTimeZone(tz);
             //序列化时，日期的统一格式
             String sdf = dateFormat != null ? dateFormat : DateTimeUtils.YYYY_MM_DD_HH_MM_SS;
-            objectMapper.setDateFormat(new SimpleDateFormat(sdf));
+            this.setDateFormat(new SimpleDateFormat(sdf));
             //序列化处理
-            objectMapper.configure(JsonReadFeature.ALLOW_UNESCAPED_CONTROL_CHARS.mappedFeature(), true);
-            objectMapper.configure(JsonReadFeature.ALLOW_BACKSLASH_ESCAPING_ANY_CHARACTER.mappedFeature(), true);
-            objectMapper.findAndRegisterModules();
+            this.configure(JsonReadFeature.ALLOW_UNESCAPED_CONTROL_CHARS.mappedFeature(), true);
+            this.configure(JsonReadFeature.ALLOW_BACKSLASH_ESCAPING_ANY_CHARACTER.mappedFeature(), true);
+            this.findAndRegisterModules();
             //失败处理
-            objectMapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
-            objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+            this.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
+            this.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
             //单引号处理
-            objectMapper.configure(JsonParser.Feature.ALLOW_SINGLE_QUOTES, true);
+            this.configure(JsonParser.Feature.ALLOW_SINGLE_QUOTES, true);
             //反序列化时，属性不存在的兼容处理
-            objectMapper.getDeserializationConfig().withoutFeatures(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+            this.getDeserializationConfig().withoutFeatures(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
             //日期格式化 java 8
             JavaTimeModule javaTimeModule = new JavaTimeModule();
             DateTimeFormatter dft = dateFormat == null ? DateTimeUtils.FMT_YYYY_MM_DD_24HH_MM_SS : DateTimeFormatter.ofPattern(dateFormat);
@@ -199,12 +193,11 @@ public class JsonUtils {
             javaTimeModule.addSerializer(BigDecimal.class, ToStringSerializer.instance);
             javaTimeModule.addSerializer(Long.class, ToStringSerializer.instance);
             javaTimeModule.addSerializer(Long.TYPE, ToStringSerializer.instance);
-            objectMapper.registerModule(new ParameterNamesModule());
-            objectMapper.registerModule(new Jdk8Module());
-            objectMapper.registerModule(javaTimeModule);
-            //objectMapper.findAndRegisterModules();
-            return objectMapper;
+            this.registerModule(new ParameterNamesModule());
+            this.registerModule(new Jdk8Module());
+            this.registerModule(javaTimeModule);
         }
+
     }
 
 }

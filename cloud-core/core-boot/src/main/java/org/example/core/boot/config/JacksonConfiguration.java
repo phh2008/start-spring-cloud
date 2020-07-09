@@ -31,7 +31,7 @@ public class JacksonConfiguration {
     @Primary
     @Bean
     public ObjectMapper objectMapper() {
-        return new JsonUtils.JacksonObjectMapper(dateFormat,timeZone).getJsonObjectMapper();
+        return new JsonUtils.JacksonObjectMapper(dateFormat, timeZone);
     }
 
 }
