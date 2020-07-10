@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.example.core.boot.handler.BaseController;
+import org.example.core.boot.support.LocaleResult;
 import org.example.core.common.annotation.Log;
 import org.example.core.common.annotation.WithoutAuthentication;
 import org.example.core.common.result.Result;
@@ -53,7 +54,7 @@ public class UserController extends BaseController {
                                     @RequestParam Map<String, Object> param) {
         Page<User> page = new Page<>(pageNo, pageSize);
         page = userService.queryPage(page, param);
-        return Result.ok(page);
+        return LocaleResult.ok(page);
     }
 
     @ApiOperation(value = "添加随机用户", httpMethod = "GET", response = Result.class)

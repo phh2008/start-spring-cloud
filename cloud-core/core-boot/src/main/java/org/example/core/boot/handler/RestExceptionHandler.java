@@ -148,7 +148,7 @@ public class RestExceptionHandler {
                 .map(DefaultMessageSourceResolvable::getDefaultMessage)
                 .collect(Collectors.joining(";"));
         ResultCodeEnum errorCode = ResultCodeEnum.PARAM_NOT_VALID;
-        return Result.of(errorCode.getCode(), MessageSourceUtils.getMsg(errorCode.getCode(), new String[]{errorMsg}, errorMsg));
+        return Result.of(errorCode.getCode(), MessageSourceUtils.getMsg(errorCode.getCode(), errorMsg, new String[]{errorMsg}));
     }
 
     /**

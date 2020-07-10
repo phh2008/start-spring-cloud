@@ -3,6 +3,7 @@ package org.example.core.boot.config;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.example.core.tool.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
@@ -14,6 +15,8 @@ import org.springframework.http.converter.ResourceRegionHttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.http.converter.json.AbstractJackson2HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.validation.Validator;
+import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
@@ -41,6 +44,8 @@ public class CloudWebMvcConfiguration implements WebMvcConfigurer {
     @Autowired
     private ObjectMapper objectMapper;
 
+    @Autowired
+    private MessageSource messageSource;
 
     @Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
@@ -78,6 +83,22 @@ public class CloudWebMvcConfiguration implements WebMvcConfigurer {
         // hystrix 的静态资源映射
         registry.addResourceHandler("/hystrix/**")
                 .addResourceLocations("classpath:/static/hystrix/");
+    }
+
+    /**
+     * 参数校验器
+     * 这里重新设置 MessageSource
+     * 默认的国际化配置文件必须以ValidationMessages开头，
+     * 比如ValidationMessages.properties 或者 ValidationMessages_en.properties
+     * 使得我们自己可定义随意的校验消息文件
+     *
+     * @return
+     */
+    @Override
+    public Validator getValidator() {
+        LocalValidatorFactoryBean validator = new LocalValidatorFactoryBean();
+        validator.setValidationMessageSource(messageSource);
+        return validator;
     }
 
     @Bean

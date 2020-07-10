@@ -1,7 +1,6 @@
 package org.example.core.tool.utils;
 
 import org.springframework.context.MessageSource;
-import org.springframework.lang.Nullable;
 
 import java.util.Locale;
 
@@ -31,7 +30,7 @@ public class MessageSourceUtils {
      * @author phh
      * @date 2020/7/10
      */
-    public static String getMsg(String code, @Nullable Object[] args, @Nullable String defaultMessage, Locale locale) {
+    public static String getMsg(String code, String defaultMessage, Locale locale, Object[] args) {
         return messageSource.getMessage(code, args, defaultMessage, locale);
     }
 
@@ -46,8 +45,8 @@ public class MessageSourceUtils {
      * @author phh
      * @date 2020/7/10
      */
-    public static String getMsg(String code, @Nullable Object[] args, @Nullable String defaultMessage) {
-        return getMsg(code, args, defaultMessage, Locale.getDefault());
+    public static String getMsg(String code, String defaultMessage, Object[] args) {
+        return messageSource.getMessage(code, args, defaultMessage, Locale.getDefault());
     }
 
     /**
@@ -60,18 +59,31 @@ public class MessageSourceUtils {
      * @author phh
      * @date 2020/7/10
      */
-    public static String getMsg(String code, @Nullable Object[] args, Locale locale) {
+    public static String getMsg(String code, Locale locale, Object[] args) {
         return messageSource.getMessage(code, args, null, locale);
     }
 
+    public static String getMsg(String code, Object[] args) {
+        return messageSource.getMessage(code, args, null, Locale.getDefault());
+    }
 
-    public static String getMsg(String code, @Nullable String defaultMessage) {
-        return getMsg(code, null, defaultMessage, Locale.getDefault());
+
+    public static String getMsg(String code, Locale locale, String defaultMessage) {
+        return messageSource.getMessage(code, null, defaultMessage, locale);
+    }
+
+
+    public static String getMsg(String code, String defaultMessage) {
+        return messageSource.getMessage(code, null, defaultMessage, Locale.getDefault());
+    }
+
+    public static String getMsg(String code, Locale locale) {
+        return messageSource.getMessage(code, null, null, locale);
     }
 
 
     public static String getMsg(String code) {
-        return getMsg(code, null, Locale.getDefault());
+        return messageSource.getMessage(code, null, null, Locale.getDefault());
     }
 
 
