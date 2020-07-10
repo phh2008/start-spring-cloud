@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.example.core.common.exception.CloudException;
 import org.example.core.common.result.Result;
 import org.example.core.common.result.ResultCodeEnum;
+import org.example.core.tool.utils.MessageSourceUtils;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -47,7 +48,8 @@ public class RestExceptionHandler {
     @ExceptionHandler(value = NoHandlerFoundException.class)
     public Result<Object> err404(HttpServletRequest req, NoHandlerFoundException ex) {
         log.error("NoHandlerFoundException, url：{}, error：{}", req.getRequestURI(), Objects.toString(ex.getMessage(), ex.toString()));
-        return Result.of(ResultCodeEnum.NOT_FOUND);
+        ResultCodeEnum errorCode = ResultCodeEnum.NOT_FOUND;
+        return Result.of(errorCode.getCode(), MessageSourceUtils.getMsg(errorCode.getCode(), errorCode.getMsg()));
     }
 
     /**
@@ -60,7 +62,9 @@ public class RestExceptionHandler {
     @ExceptionHandler(value = HttpRequestMethodNotSupportedException.class)
     public Result<Object> err405(HttpServletRequest req, HttpRequestMethodNotSupportedException ex) {
         log.error("HttpRequestMethodNotSupportedException, url：{}, error：{}", req.getRequestURI(), Objects.toString(ex.getMessage(), ex.toString()));
-        return Result.of(ResultCodeEnum.METHOD_NOT_ALLOWED);
+
+        ResultCodeEnum errorCode = ResultCodeEnum.METHOD_NOT_ALLOWED;
+        return Result.of(errorCode.getCode(), MessageSourceUtils.getMsg(errorCode.getCode(), errorCode.getMsg()));
     }
 
     /**
@@ -75,12 +79,11 @@ public class RestExceptionHandler {
     public Result<Object> err521(HttpServletRequest req, HttpMessageNotReadableException ex) {
         log.error("HttpMessageNotReadableException, url：{}, error：{}", req.getRequestURI(), ex.toString());
         String error = Objects.toString(ex.getMessage());
+        ResultCodeEnum errorCode = ResultCodeEnum.PARAM_PARSE_ERROR;
         if (error.startsWith("Required request body is missing")) {
-            return Result.of(ResultCodeEnum.PARAM_EMPTY);
-        } else if (error.startsWith("JSON parse error")) {
-            return Result.of(ResultCodeEnum.PARAM_PARSE_ERROR);
+            errorCode = ResultCodeEnum.PARAM_EMPTY;
         }
-        return Result.of(ResultCodeEnum.PARAM_PARSE_ERROR);
+        return Result.of(errorCode.getCode(), MessageSourceUtils.getMsg(errorCode.getCode(), errorCode.getMsg()));
     }
 
     /**
@@ -94,7 +97,8 @@ public class RestExceptionHandler {
     @ExceptionHandler(value = HttpMediaTypeNotSupportedException.class)
     public Result<Object> err415(HttpServletRequest req, HttpMediaTypeNotSupportedException ex) {
         log.error("HttpMediaTypeNotSupportedException, url：{}, error：{}", req.getRequestURI(), Objects.toString(ex.getMessage(), ex.toString()));
-        return Result.of(ResultCodeEnum.UNSUPPORTED_MEDIA_TYPE);
+        ResultCodeEnum errorCode = ResultCodeEnum.UNSUPPORTED_MEDIA_TYPE;
+        return Result.of(errorCode.getCode(), MessageSourceUtils.getMsg(errorCode.getCode(), errorCode.getMsg()));
     }
 
     /**
@@ -108,7 +112,8 @@ public class RestExceptionHandler {
     @ExceptionHandler(value = MissingServletRequestParameterException.class)
     public Result<Object> err521(HttpServletRequest req, MissingServletRequestParameterException ex) {
         log.error("MissingServletRequestParameterException, url：{}, error：{}", req.getRequestURI(), Objects.toString(ex.getMessage(), ex.toString()));
-        return Result.of(ResultCodeEnum.PARAM_EMPTY, "缺少参数[" + ex.getParameterName() + "]");
+        ResultCodeEnum errorCode = ResultCodeEnum.MISS_PARAM;
+        return Result.of(errorCode.getCode(), MessageSourceUtils.getMsg(errorCode.getCode(), "缺少参数[" + ex.getParameterName() + "]"));
     }
 
     /**
@@ -122,7 +127,8 @@ public class RestExceptionHandler {
     @ExceptionHandler(value = MethodArgumentTypeMismatchException.class)
     public Result<Object> err522(HttpServletRequest req, MethodArgumentTypeMismatchException ex) {
         log.error("MethodArgumentTypeMismatchException, url：{}, error：{}", req.getRequestURI(), Objects.toString(ex.getMessage(), ex.toString()));
-        return Result.of(ResultCodeEnum.PARAM_ERROR, "[" + ex.getName() + "]参数错误");
+        ResultCodeEnum errorCode = ResultCodeEnum.PARAM_TYPE_ERROR;
+        return Result.of(errorCode.getCode(), MessageSourceUtils.getMsg(errorCode.getCode(), "[" + ex.getName() + "]参数错误"));
     }
 
     /**
@@ -132,6 +138,8 @@ public class RestExceptionHandler {
      * @param ex
      * @return
      */
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public Result argumentNotValidHandler(HttpServletRequest req, MethodArgumentNotValidException ex) {
         log.error("MethodArgumentNotValidException, url：{}, error：{}", req.getRequestURI(), Objects.toString(ex.getMessage(), ex.toString()));
@@ -139,7 +147,8 @@ public class RestExceptionHandler {
         String errorMsg = errors.stream()
                 .map(DefaultMessageSourceResolvable::getDefaultMessage)
                 .collect(Collectors.joining(";"));
-        return Result.of(ResultCodeEnum.PARAM_ERROR, errorMsg);
+        ResultCodeEnum errorCode = ResultCodeEnum.PARAM_NOT_VALID;
+        return Result.of(errorCode.getCode(), MessageSourceUtils.getMsg(errorCode.getCode(), new String[]{errorMsg}, errorMsg));
     }
 
     /**
@@ -178,7 +187,7 @@ public class RestExceptionHandler {
     @ExceptionHandler(value = CloudException.class)
     public Result<Object> customExceptionHandler(HttpServletRequest req, CloudException ex) {
         log.error("CloudException, url：{}, error：{}", req.getRequestURI(), Objects.toString(ex.getMessage(), ex.toString()));
-        return Result.of(ex.getCode(), ex.getMessage());
+        return Result.of(ex.getCode(), MessageSourceUtils.getMsg(ex.getCode(), ex.getMessage()));
     }
 
     /**

@@ -41,6 +41,9 @@ public enum ResultCodeEnum implements IResultCode {
     PARAM_ERROR("5000", "参数错误"),
     PARAM_PARSE_ERROR("5001", "参数解析异常"),
     PARAM_EMPTY("5002", "参数为空"),
+    MISS_PARAM("5003", "缺少参数[?]"),
+    PARAM_TYPE_ERROR("5004", "[?]参数类型错误"),
+    PARAM_NOT_VALID("5005", "[?]参数校验无效"),
 
     ;
 

@@ -1,6 +1,8 @@
 package org.example.core.boot.config;
 
+import org.example.core.tool.utils.MessageSourceUtils;
 import org.example.core.tool.utils.SpringContextUtils;
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -18,6 +20,11 @@ public class ToolsBeanConfiguration {
     @Bean
     public SpringContextUtils springContextUtils() {
         return new SpringContextUtils();
+    }
+
+    @Bean
+    public MessageSourceUtils messageSourceUtils(MessageSource messageSource) {
+        return new MessageSourceUtils(messageSource);
     }
 
 

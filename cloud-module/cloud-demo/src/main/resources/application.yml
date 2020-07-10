@@ -37,13 +37,14 @@ spring:
     encoding: UTF-8
     cache-duration: 1000s
     use-code-as-default-message: true
-    basename: i18n.test
+    basename: i18n.test,i18n.error
   resources:
     static-locations: ["/templates/","/resources/","/static/","/public/"]
   mvc:
     static-path-pattern: /static/**
   # thymeleaf
   thymeleaf:
+    enabled: true
     prefix: classpath:/templates/
     suffix: .html
     mode: HTML
