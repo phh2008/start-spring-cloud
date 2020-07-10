@@ -15,13 +15,15 @@ import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
 import org.example.core.common.mp.base.BaseColumnEntity;
-import org.example.core.common.mp.base.BaseEntity;
 import org.example.core.common.mp.base.BaseService;
 import org.example.core.common.mp.base.BaseServiceImpl;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 /**
@@ -98,7 +100,12 @@ public class CodeGenerator {
         InjectionConfig cfg = new InjectionConfig() {
             @Override
             public void initMap() {
-                // to do nothing
+                Map<String, Object> map = new HashMap<String, Object>();
+                //自定义配置，在模版中cfg.superColums 获取
+                // TODO 这里解决子类会生成父类属性的问题，在模版里会用到该配置
+                //TODO 写于entity实体父类中的公共字段
+                map.put("superColums", Arrays.asList("createBy", "createdAt", "updateBy", "updatedAt", "delFlag"));
+                this.setMap(map);
             }
         };
 
@@ -141,7 +148,7 @@ public class CodeGenerator {
 
         // 配置自定义输出模板
         //指定自定义模板路径，注意不要带上.ftl/.vm, 会根据使用的模板引擎自动识别
-        // templateConfig.setEntity("templates/entity2.java");
+        templateConfig.setEntity("templates/entity.java");
         // templateConfig.setService();
         // templateConfig.setController();
 
@@ -160,8 +167,8 @@ public class CodeGenerator {
         strategy.setSuperServiceClass(BaseService.class);
         strategy.setSuperServiceImplClass(BaseServiceImpl.class);
         strategy.setSuperControllerClass("org.example.core.boot.handler.BaseController");
-        //TODO 写于父类中的公共字段
-        strategy.setSuperEntityColumns("createBy", "createdAt", "updateBy", "updatedAt", "delFlag");
+        //这实体类父类公共字段在这配置无效，在上面配置
+        //strategy.setSuperEntityColumns("createBy", "createdAt", "updateBy", "updatedAt", "delFlag");
 
         strategy.setInclude(scanner("表名，多个英文逗号分割").split(","));
         strategy.setControllerMappingHyphenStyle(true);
