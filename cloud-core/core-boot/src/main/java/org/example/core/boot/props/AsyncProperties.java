@@ -11,7 +11,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * @date 2020/6/23
  */
 @Data
-@ConfigurationProperties("async")
+@ConfigurationProperties("start.async")
 public class AsyncProperties {
 
     /**

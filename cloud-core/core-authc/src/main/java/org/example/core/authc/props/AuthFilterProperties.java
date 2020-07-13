@@ -29,7 +29,7 @@ import java.util.List;
  * @date 2020/6/28
  */
 @Data
-@ConfigurationProperties("auth")
+@ConfigurationProperties("start.auth")
 public class AuthFilterProperties {
 
     private final List<String> excludePatterns = new ArrayList<>();

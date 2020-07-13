@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * @version V1.0
  * @date 2020/7/8
  */
-@FeignClient(name = "${auth.service-name}")
+@FeignClient(name = "${start.auth.service-name}")
 public interface AuthFeign {
 
 

@@ -29,7 +29,7 @@ import java.util.List;
  * @date 2020/6/24
  */
 @Data
-@ConfigurationProperties("xss")
+@ConfigurationProperties("start.xss")
 public class XssProperties {
 
     /**
