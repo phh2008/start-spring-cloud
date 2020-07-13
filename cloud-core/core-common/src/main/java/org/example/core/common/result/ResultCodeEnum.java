@@ -34,6 +34,7 @@ public enum ResultCodeEnum implements IResultCode {
     UNAUTHENTICATED("4007", "未登录，请登录认证"),
     AUTH_EXPIRED("4008", "登录过期，请重新登录认证"),
     UNSUPPORTED_MEDIA_TYPE("4015", "不支持的媒体类型"),
+    UPLOAD_ERROR("4016", "上传文件错误"),
 
     /**
      * 5000-参数错误

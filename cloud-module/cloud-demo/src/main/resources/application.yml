@@ -53,6 +53,13 @@ spring:
     cache: false
     servlet:
       content-type: text/html
+  # 文件上传配置
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 100MB
+      max-request-size: 200MB
+      resolve-lazily: false
   # druid数据源配置
   datasource:
     name: druidDataSource
@@ -158,6 +165,8 @@ seata:
       namespace: seata
       cluster: default
 # 自定义配置
+start:
+  uploadFolder: /home/data/uploads
 # 异步线程池配置
 async:
   corePoolSize: 8

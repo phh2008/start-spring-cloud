@@ -8,15 +8,18 @@ import org.example.core.boot.handler.BaseController;
 import org.example.core.boot.support.LocaleResult;
 import org.example.core.common.annotation.Log;
 import org.example.core.common.annotation.WithoutAuthentication;
+import org.example.core.common.dto.UploadFileInfo;
 import org.example.core.common.result.Result;
 import org.example.core.tool.utils.StringUtils;
 import org.example.demo.entity.User;
 import org.example.demo.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Map;
 
@@ -74,6 +77,14 @@ public class UserController extends BaseController {
     public Result<User> addRandom2() {
         User user = userService.createRandomUser();
         return Result.ok(user);
+    }
+
+
+    @ApiOperation(value = "上传文件", response = Result.class)
+    @PostMapping("/uploadFile")
+    public Result<UploadFileInfo> uploadFile(MultipartFile file) {
+        UploadFileInfo info = uploadFile(file, "/erp/user");
+        return Result.ok(info);
     }
 
 }
