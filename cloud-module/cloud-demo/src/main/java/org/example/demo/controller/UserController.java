@@ -1,6 +1,12 @@
 package org.example.demo.controller;
 
 
+import com.alibaba.csp.sentinel.slots.block.authority.AuthorityRule;
+import com.alibaba.csp.sentinel.slots.block.authority.AuthorityRuleManager;
+import com.alibaba.csp.sentinel.slots.block.flow.FlowRule;
+import com.alibaba.csp.sentinel.slots.block.flow.FlowRuleManager;
+import com.alibaba.csp.sentinel.slots.block.flow.param.ParamFlowRule;
+import com.alibaba.csp.sentinel.slots.block.flow.param.ParamFlowRuleManager;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -21,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -44,6 +51,12 @@ public class UserController extends BaseController {
     @ApiOperation(value = "用户例表", httpMethod = "GET", response = Result.class)
     @GetMapping("/list")
     public Result<Page<User>> list() {
+        List<ParamFlowRule> paramRules = ParamFlowRuleManager.getRules();
+        List<FlowRule> flowFules = FlowRuleManager.getRules();
+        List<AuthorityRule> authorityRules = AuthorityRuleManager.getRules();
+        System.out.println(">>>>>>>>paramRules：" + paramRules);
+        System.out.println(">>>>>>>>flowFules：" + flowFules);
+        System.out.println(">>>>>>>>authorityRules：" + authorityRules);
         Page<User> page = new Page<>(1, 2);
         page = userService.page(page, null);
         return Result.ok(page);
