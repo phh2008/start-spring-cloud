@@ -12,11 +12,11 @@
     <packaging>jar</packaging>
 
     <dependencies>
-        <dependency>
+        <!--<dependency>
             <groupId>org.example</groupId>
             <artifactId>core-authc</artifactId>
             <version>${project.version}</version>
-        </dependency>
+        </dependency>-->
         <dependency>
             <groupId>org.example</groupId>
             <artifactId>cloud-sys-api</artifactId>
