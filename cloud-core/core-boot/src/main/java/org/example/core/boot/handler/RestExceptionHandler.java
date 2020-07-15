@@ -113,7 +113,7 @@ public class RestExceptionHandler {
     public Result<Object> err521(HttpServletRequest req, MissingServletRequestParameterException ex) {
         log.error("MissingServletRequestParameterException, url：{}, error：{}", req.getRequestURI(), Objects.toString(ex.getMessage(), ex.toString()));
         ResultCodeEnum errorCode = ResultCodeEnum.MISS_PARAM;
-        return Result.of(errorCode.getCode(), MessageSourceUtils.getMsg(errorCode.getCode(), "缺少参数[" + ex.getParameterName() + "]"));
+        return Result.of(errorCode.getCode(), MessageSourceUtils.getMsg(errorCode.getCode(), "缺少参数[" + ex.getParameterName() + "]", new Object[]{ex.getParameterName()}));
     }
 
     /**
@@ -128,7 +128,7 @@ public class RestExceptionHandler {
     public Result<Object> err522(HttpServletRequest req, MethodArgumentTypeMismatchException ex) {
         log.error("MethodArgumentTypeMismatchException, url：{}, error：{}", req.getRequestURI(), Objects.toString(ex.getMessage(), ex.toString()));
         ResultCodeEnum errorCode = ResultCodeEnum.PARAM_TYPE_ERROR;
-        return Result.of(errorCode.getCode(), MessageSourceUtils.getMsg(errorCode.getCode(), "[" + ex.getName() + "]参数错误"));
+        return Result.of(errorCode.getCode(), MessageSourceUtils.getMsg(errorCode.getCode(), "[" + ex.getName() + "]参数错误", new Object[]{ex.getName()}));
     }
 
     /**
