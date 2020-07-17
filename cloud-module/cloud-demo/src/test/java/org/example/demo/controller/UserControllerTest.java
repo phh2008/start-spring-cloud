@@ -1,14 +1,14 @@
 package org.example.demo.controller;
 
 import org.example.DemoApplication;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -24,7 +24,7 @@ import org.springframework.web.context.WebApplicationContext;
  * @version V1.0
  * @date 2020/7/17
  */
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = {DemoApplication.class})
 @TestPropertySource(locations = {"classpath:application.yml"})
 public class UserControllerTest {
@@ -34,7 +34,7 @@ public class UserControllerTest {
 
     private MockMvc mockMvc;
 
-    @Before
+    @BeforeEach
     public void before() {
         this.mockMvc = MockMvcBuilders.webAppContextSetup(this.context).build();
     }
@@ -50,7 +50,7 @@ public class UserControllerTest {
                 .andDo(MockMvcResultHandlers.print())
                 .andReturn();
         // 与 andExpect(MockMvcResultMatchers.status().isOk()) 作用一样
-        Assert.assertEquals(200, mvcResult.getResponse().getStatus());
+        Assertions.assertEquals(200, mvcResult.getResponse().getStatus());
         System.out.println(mvcResult.getResponse().getContentAsString());
     }
 

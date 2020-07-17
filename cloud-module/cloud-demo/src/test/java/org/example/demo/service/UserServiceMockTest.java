@@ -6,16 +6,14 @@ import org.example.core.common.result.Result;
 import org.example.demo.dao.UserMapper;
 import org.example.demo.entity.User;
 import org.example.demo.service.impl.UserServiceImpl;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
-import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.test.util.ReflectionTestUtils;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static org.mockito.Mockito.when;
 
@@ -26,7 +24,7 @@ import static org.mockito.Mockito.when;
  * @version V1.0
  * @date 2020/7/17
  */
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(SpringExtension.class)
 public class UserServiceMockTest {
 
     @InjectMocks
@@ -37,11 +35,11 @@ public class UserServiceMockTest {
     @Mock
     private LogFeign logFeign;
 
-    @Before
+    @BeforeEach
     public void init() {
         //如果是和Springboot test 整合，可以这样注入参数
         //MockitoAnnotations.initMocks(this);
-        //如果有些参数自动注入不了，还可以反射注入
+        //如果参数自动注入不了，还可以反射注入
         //ReflectionTestUtils.setField(userService,"logFeign",logFeign);
     }
 
@@ -50,7 +48,7 @@ public class UserServiceMockTest {
         when(userMapper.insert(Mockito.any())).thenReturn(1);
         when(logFeign.add(Mockito.any())).thenReturn(Result.ok(new LogDTO()));
         User r = userService.createRandomUser();
-        Assert.assertTrue(r != null);
+        Assertions.assertTrue(r != null);
     }
 
 }

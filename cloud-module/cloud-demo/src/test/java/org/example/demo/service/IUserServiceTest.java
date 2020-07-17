@@ -3,14 +3,14 @@ package org.example.demo.service;
 import org.example.DemoApplication;
 import org.example.core.tool.utils.StringUtils;
 import org.example.demo.entity.User;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -20,7 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @version V1.0
  * @date 2020/7/2
  */
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = {DemoApplication.class})
 @TestPropertySource(locations = {"classpath:application.yml"})
 public class IUserServiceTest {
@@ -37,7 +37,7 @@ public class IUserServiceTest {
         user.setUsername(StringUtils.random(6, StringUtils.RandomType.ALL));
         user.setRealName("临时用户");
         boolean effect = userService.save(user);
-        Assert.assertTrue(effect);
+        Assertions.assertTrue(effect);
     }
 
 }

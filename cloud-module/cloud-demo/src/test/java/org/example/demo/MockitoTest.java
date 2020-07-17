@@ -1,7 +1,8 @@
 package org.example.demo;
 
-import org.junit.Assert;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.util.Iterator;
 import java.util.List;
@@ -46,14 +47,14 @@ public class MockitoTest {
         when(list.add("a")).thenReturn(true);
         when(list.size()).thenReturn(1);
 
-        Assert.assertTrue(list.add("a"));
-        Assert.assertTrue(list.size() == 1);
-        Assert.assertFalse(list.add("b"));
+        Assertions.assertTrue(list.add("a"));
+        Assertions.assertTrue(list.size() == 1);
+        Assertions.assertFalse(list.add("b"));
 
         Iterator ite = mock(Iterator.class);
         when(ite.next()).thenReturn("hello,").thenReturn("world!");
         String ret = ite.next() + "" + ite.next();
-        Assert.assertEquals("hello,world!", ret);
+        Assertions.assertEquals("hello,world!", ret);
     }
 
 }
