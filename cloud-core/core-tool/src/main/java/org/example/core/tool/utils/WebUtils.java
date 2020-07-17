@@ -12,6 +12,12 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
+
+import static org.example.core.tool.utils.StringConst.COMMA;
+import static org.example.core.tool.utils.StringConst.UNKNOWN;
 
 /**
  * web 工具类
@@ -23,6 +29,13 @@ import java.io.IOException;
 public class WebUtils extends org.springframework.web.util.WebUtils {
 
     private static final Logger log = LoggerFactory.getLogger(WebUtils.class);
+
+    private static final List<String> IP_HEADERS = Arrays.asList("X-Forwarded-For",
+            "X-Real-IP",
+            "Proxy-Client-IP",
+            "WL-Proxy-Client-IP",
+            "HTTP_CLIENT_IP",
+            "HTTP_X_FORWARDED_FOR");
 
     public static HttpServletRequest getRequest() {
         RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
@@ -103,34 +116,14 @@ public class WebUtils extends org.springframework.web.util.WebUtils {
         return getCookieValue(request, name);
     }
 
-    private static final String KEY_UNKNOWN = "unknown";
 
     public static String getIp(final HttpServletRequest request) {
-        String ip = request.getHeader("X-Forwarded-For");
-        if (StringUtils.isEmpty(ip) || KEY_UNKNOWN.equalsIgnoreCase(ip)) {
-            ip = request.getHeader("X-Real-IP");
-        }
-        if (StringUtils.isEmpty(ip) || KEY_UNKNOWN.equalsIgnoreCase(ip)) {
-            ip = request.getHeader("Proxy-Client-IP");
-        }
-        if (StringUtils.isEmpty(ip) || KEY_UNKNOWN.equalsIgnoreCase(ip)) {
-            ip = request.getHeader("WL-Proxy-Client-IP");
-        }
-        if (StringUtils.isEmpty(ip) || KEY_UNKNOWN.equalsIgnoreCase(ip)) {
-            ip = request.getHeader("HTTP_CLIENT_IP");
-        }
-        if (StringUtils.isEmpty(ip) || KEY_UNKNOWN.equalsIgnoreCase(ip)) {
-            ip = request.getHeader("HTTP_X_FORWARDED_FOR");
-        }
-        //有些网络通过多层代理，那么获取到的ip就会有多个，
-        //一般都是通过逗号（,）分割开来，并且第一个ip为客户端的真实IP
-        if (!StringUtils.isEmpty(ip) && ip.indexOf(StringConst.COMMA) > 0) {
-            ip = ip.split(StringConst.COMMA)[0];
-        }
-        if (StringUtils.isEmpty(ip) || KEY_UNKNOWN.equalsIgnoreCase(ip)) {
-            ip = request.getRemoteAddr();
-        }
-        return ip;
+        Optional<String> ipOptional = IP_HEADERS.stream()
+                .map(request::getHeader)
+                .filter(e -> !StringUtils.isEmpty(e) && !UNKNOWN.equalsIgnoreCase(e))
+                .findFirst();
+        return ipOptional.map(e -> e.indexOf(COMMA) > 0 ? e.split(COMMA)[0] : e)
+                .orElse(request.getRemoteAddr());
     }
 
 }
