@@ -55,7 +55,7 @@
         <objenesis.version>3.0.1</objenesis.version>
         <cglib.version>3.1</cglib.version>
         <jjwt.version>0.9.1</jjwt.version>
-        <hutool.version>5.0.6</hutool.version>
+        <hutool.version>5.3.9</hutool.version>
         <transmittable.thread.local.version>2.10.2</transmittable.thread.local.version>
     </properties>
 
@@ -274,7 +274,7 @@
             <!-- 工具类 -->
             <dependency>
                 <groupId>cn.hutool</groupId>
-                <artifactId>hutool-all</artifactId>
+                <artifactId>hutool-http</artifactId>
                 <version>${hutool.version}</version>
             </dependency>
             <dependency>

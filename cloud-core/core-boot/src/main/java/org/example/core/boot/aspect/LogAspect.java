@@ -1,6 +1,5 @@
 package org.example.core.boot.aspect;
 
-import cn.hutool.extra.servlet.ServletUtil;
 import cn.hutool.http.useragent.Browser;
 import cn.hutool.http.useragent.UserAgent;
 import cn.hutool.http.useragent.UserAgentParser;
@@ -99,16 +98,20 @@ public class LogAspect {
         String url = request.getRequestURL().toString();
         logInfo.setUrl(url);
         // 设置IP地址
-        String ipAddr = ServletUtil.getClientIP(request);
+        String ipAddr = WebUtils.getIp(request);
         logInfo.setIp(ipAddr);
         // 设置浏览器和设备系统
+        String browserName = "";
+        String os = "";
         String userAgentHeader = request.getHeader("User-Agent");
         UserAgent userAgent = UserAgentParser.parse(userAgentHeader);
-        Browser browser = userAgent.getBrowser();
-        //浏览器名称与版本
-        String browserName = browser.getName() + ":" + browser.getVersion(userAgentHeader);
-        //设备系统
-        String os = userAgent.getPlatform().getName();
+        if (userAgent != null) {
+            Browser browser = userAgent.getBrowser();
+            //浏览器名称与版本
+            browserName = browser.getName() + ":" + browser.getVersion(userAgentHeader);
+            //设备系统
+            os = userAgent.getPlatform().getName();
+        }
         logInfo.setBrowser(browserName);
         logInfo.setOs(os);
         //异常
