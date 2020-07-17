@@ -75,76 +75,58 @@ public class DateTimeUtils {
 
 
     /**
-     * <p> Date to LocalDate </p>
+     * Date to LocalDate
      *
-     * @param date
+     * @param date 日期时间
      * @return LocalDate
-     * @author jacky
-     * @date 2018/7/26
-     * @version V1.0
      */
     public static LocalDate toLocalDate(Date date) {
         return date == null ? null : date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
     }
 
     /**
-     * <p> Date to LocalDateTime </p>
+     * Date to LocalDateTime
      *
-     * @param date
+     * @param date 日期时间
      * @return LocalDateTime
-     * @author jacky
-     * @date 2018/7/26
-     * @version V1.0
      */
     public static LocalDateTime toLocalDateTime(Date date) {
         return date == null ? null : date.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
     }
 
     /**
-     * <p> LocalDate to Date </p>
+     * LocalDate to Date
      *
-     * @param localDate
+     * @param localDate 日期
      * @return Date
-     * @author jacky
-     * @date 2018/7/26
-     * @version V1.0
      */
     public static Date toDate(LocalDate localDate) {
         return localDate == null ? null : Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
     }
 
     /**
-     * <p> LocalDateTime to Date </p>
+     * LocalDateTime to Date
      *
-     * @param localDateTime
+     * @param localDateTime 日期时间
      * @return Date
-     * @author jacky
-     * @date 2018/7/26
-     * @version V1.0
      */
     public static Date toDate(LocalDateTime localDateTime) {
         return localDateTime == null ? null : Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
     }
 
     /**
-     * <p>
      * 格式为人性化字符串 :
      * 如：刚刚，x分钟前，x小时前，x天前，x月前，yyyy-MM
-     * </p>
      *
-     * @param
-     * @return
-     * @throws
-     * @author jacky
-     * @date 2019/4/2
-     * @version V1.0
+     * @param dateTime 日期时间
+     * @return string
      */
-    public static String fmtHuman(LocalDateTime before) {
-        if (before == null) {
+    public static String fmtHuman(LocalDateTime dateTime) {
+        if (dateTime == null) {
             return "";
         }
         final LocalDateTime now = LocalDateTime.now();
-        Duration duration = Duration.between(before, now);
+        Duration duration = Duration.between(dateTime, now);
         long seconds = duration.getSeconds();
         if (seconds <= 60) {
             return "刚刚";
@@ -157,7 +139,7 @@ public class DateTimeUtils {
         } else if (seconds < 31104000) {
             return seconds / 2592000 + "个月前";
         }
-        return before.format(FMT_YYYY_MM);
+        return dateTime.format(FMT_YYYY_MM);
     }
 
 
