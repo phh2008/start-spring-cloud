@@ -103,36 +103,32 @@ public class WebUtils extends org.springframework.web.util.WebUtils {
         return getCookieValue(request, name);
     }
 
+    private static final String KEY_UNKNOWN = "unknown";
+
     public static String getIp(final HttpServletRequest request) {
         String ip = request.getHeader("X-Forwarded-For");
-        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
-            if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
-                ip = request.getHeader("X-Real-IP");
-            }
-            if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
-                ip = request.getHeader("Proxy-Client-IP");
-            }
-            if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
-                ip = request.getHeader("WL-Proxy-Client-IP");
-            }
-            if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
-                ip = request.getHeader("HTTP_CLIENT_IP");
-            }
-            if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
-                ip = request.getHeader("HTTP_X_FORWARDED_FOR");
-            }
-            if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
-                ip = request.getRemoteAddr();
-            }
-        } else if (ip.length() > 15) {
-            String[] ips = ip.split(",");
-            for (int index = 0; index < ips.length; index++) {
-                String strIp = ips[index];
-                if (!("unknown".equalsIgnoreCase(strIp))) {
-                    ip = strIp;
-                    break;
-                }
-            }
+        if (StringUtils.isEmpty(ip) || KEY_UNKNOWN.equalsIgnoreCase(ip)) {
+            ip = request.getHeader("X-Real-IP");
+        }
+        if (StringUtils.isEmpty(ip) || KEY_UNKNOWN.equalsIgnoreCase(ip)) {
+            ip = request.getHeader("Proxy-Client-IP");
+        }
+        if (StringUtils.isEmpty(ip) || KEY_UNKNOWN.equalsIgnoreCase(ip)) {
+            ip = request.getHeader("WL-Proxy-Client-IP");
+        }
+        if (StringUtils.isEmpty(ip) || KEY_UNKNOWN.equalsIgnoreCase(ip)) {
+            ip = request.getHeader("HTTP_CLIENT_IP");
+        }
+        if (StringUtils.isEmpty(ip) || KEY_UNKNOWN.equalsIgnoreCase(ip)) {
+            ip = request.getHeader("HTTP_X_FORWARDED_FOR");
+        }
+        //有些网络通过多层代理，那么获取到的ip就会有多个，
+        //一般都是通过逗号（,）分割开来，并且第一个ip为客户端的真实IP
+        if (!StringUtils.isEmpty(ip) && ip.indexOf(StringConst.COMMA) > 0) {
+            ip = ip.split(StringConst.COMMA)[0];
+        }
+        if (StringUtils.isEmpty(ip) || KEY_UNKNOWN.equalsIgnoreCase(ip)) {
+            ip = request.getRemoteAddr();
         }
         return ip;
     }
