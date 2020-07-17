@@ -1,17 +1,17 @@
 package org.example.demo.service;
 
 import org.example.DemoApplication;
-import org.example.demo.dao.UserMapper;
+import org.example.core.tool.utils.StringUtils;
 import org.example.demo.entity.User;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
-
-import javax.annotation.Resource;
-import java.util.List;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * 描述
@@ -25,15 +25,19 @@ import java.util.List;
 @TestPropertySource(locations = {"classpath:application.yml"})
 public class IUserServiceTest {
 
-    @Resource
-    private UserMapper userMapper;
+    @Autowired
+    private IUserService userService;
 
     @Test
-    public void testSelectList() {
-
-        List<User> list = userMapper.selectList(null);
-        Assert.assertTrue(list != null && list.size() > 0);
+    @Transactional
+    @Rollback(true) //不提交事务
+    public void testAdd() {
+        User user = new User();
+        user.setPassword("123456");
+        user.setUsername(StringUtils.random(6, StringUtils.RandomType.ALL));
+        user.setRealName("临时用户");
+        boolean effect = userService.save(user);
+        Assert.assertTrue(effect);
     }
-
 
 }
