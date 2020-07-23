@@ -15,7 +15,6 @@
  */
 package org.example.core.authc.interceptor;
 
-import cn.hutool.extra.servlet.ServletUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.core.authc.component.UserAuthHelper;
@@ -82,7 +81,7 @@ public class UserAuthInterceptor extends HandlerInterceptorAdapter {
         }
         log.warn("客户端认证失败，请求接口：{}，请求IP：{}，请求参数：{}",
                 request.getRequestURI(),
-                ServletUtil.getClientIP(request),
+                WebUtils.getIp(request),
                 JsonUtils.writeAsString(request.getParameterMap()));
         Result<?> result = Result.of(ResultCodeEnum.UNAUTHENTICATED);
         WebUtils.writeJson(response, Objects.requireNonNull(JsonUtils.writeAsString(result)));
