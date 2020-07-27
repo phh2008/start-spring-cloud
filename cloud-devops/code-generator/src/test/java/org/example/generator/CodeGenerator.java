@@ -17,7 +17,7 @@ import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
 import org.example.core.common.mp.base.BaseColumnEntity;
 import org.example.core.common.mp.base.BaseService;
 import org.example.core.common.mp.base.BaseServiceImpl;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -93,8 +93,8 @@ public class CodeGenerator {
         // 包配置
         PackageConfig pc = new PackageConfig();
         pc.setModuleName(scanner("模块名"));
-        //TODO 包名
-        pc.setParent("org.example");
+        //TODO 包名 e.g. org.example
+        pc.setParent(scanner("包名"));
         mpg.setPackageInfo(pc);
         // 自定义配置
         InjectionConfig cfg = new InjectionConfig() {
