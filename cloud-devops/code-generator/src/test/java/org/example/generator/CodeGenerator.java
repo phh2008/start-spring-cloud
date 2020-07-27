@@ -92,9 +92,9 @@ public class CodeGenerator {
 
         // 包配置
         PackageConfig pc = new PackageConfig();
-        pc.setModuleName(scanner("模块名"));
         //TODO 包名 e.g. org.example
         pc.setParent(scanner("包名"));
+        pc.setModuleName(scanner("模块名"));
         mpg.setPackageInfo(pc);
         // 自定义配置
         InjectionConfig cfg = new InjectionConfig() {
