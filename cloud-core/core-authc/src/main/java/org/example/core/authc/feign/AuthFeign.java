@@ -23,7 +23,7 @@ public interface AuthFeign {
      *
      * @return
      */
-    @RequestMapping(value = "/userPubKey", method = RequestMethod.POST)
+    @RequestMapping(value = "${start.auth.pub-key-url:/userPubKey}", method = RequestMethod.POST)
     Result<byte[]> getUserPublicKey();
 
     /**
@@ -32,7 +32,7 @@ public interface AuthFeign {
      * @param dto 角色
      * @return boolean
      */
-    @RequestMapping(value = "/authorize/hasAnyRole", method = RequestMethod.POST)
+    @RequestMapping(value = "${start.auth.has-any-role-url:/authorize/hasAnyRole}", method = RequestMethod.POST)
     Result<Boolean> hasAnyRole(@RequestBody CheckAuthorizeDTO dto);
 
     /**
@@ -41,7 +41,7 @@ public interface AuthFeign {
      * @param dto 权限
      * @return boolean
      */
-    @RequestMapping(value = "/authorize/hasAnyPermit", method = RequestMethod.POST)
+    @RequestMapping(value = "${start.auth.has-any-permit-url:/authorize/hasAnyPermit}", method = RequestMethod.POST)
     Result<Boolean> hasAnyPermit(@RequestBody CheckAuthorizeDTO dto);
 
 }
