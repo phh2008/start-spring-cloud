@@ -9,14 +9,14 @@ Start-spring-cloud
 ├    ├── core-common -- 各种baseEntity,mapper,service,result,annotation
 ├    └── core-tool -- 工具类
 ├── cloud-gateway -- 网关
-├── cloud-devops -- 运维中心(各种 admin 控制台)
+├── cloud-devops -- 运维开发
 ├    ├── code-generator -- 代码生成器
 ├── cloud-module -- 业务模块
-├    ├── cloud-auth -- 认证服务(对外提供登录认证API)
-├    ├── cloud-sys -- 系统服务(比如用户、菜单、角色、权限、字典等基础服务)
+├    ├── cloud-auth -- 示例服务：对外提供登录认证API
+├    ├── cloud-sys -- 示例服务：提供认证、签权实现等
 ├    ├── cloud-demo -- 示例服务
 ├── cloud-module-api -- 业务模块api(vo、dto、feign等)
-└──  └── cloud-sys-api -- 系统api
+└──  └── cloud-sys-api -- 示例：系统api
 ```
 
 ### 项目已整合的功能

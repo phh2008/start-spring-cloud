@@ -24,6 +24,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * 1):bean属性复制必需是同名同类型才会复制.
  * 2):map转换为bean必需要求map与bean属性数据类型一致，bean转换为map无要求.
  * 3):因为使用Objenesis，目标Class可不提供构造.
+ * 4):对象中的setter链式调用不支持，会报错.
  *
  * @author phh
  * @version V1.0
