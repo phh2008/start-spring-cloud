@@ -323,18 +323,18 @@
         </dependencies>
     </dependencyManagement>
 
-    <repositories>
+    <distributionManagement>
         <repository>
-            <id>repo3</id>
-            <name>Human Readable Name for this Mirror.</name>
-            <url>https://repo1.maven.org/maven2/</url>
+            <id>releases</id>
+            <name>Nexus Release Repository</name>
+            <url>http://127.0.0.1:8081/repository/maven-releases/</url>
         </repository>
-        <repository>
-            <id>aliyun</id>
-            <name>aliyun</name>
-            <url>https://maven.aliyun.com/repository/public</url>
-        </repository>
-    </repositories>
+        <snapshotRepository>
+            <id>snapshots</id>
+            <name>Nexus Snapshot Repository</name>
+            <url>http://127.0.0.1:8081/repository/maven-snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
 
     <profiles>
         <profile>
