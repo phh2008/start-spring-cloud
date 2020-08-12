@@ -1,12 +1,15 @@
 package org.example.core.boot.support;
 
 
+import org.example.core.common.result.IResultCode;
 import org.example.core.common.result.Result;
 import org.example.core.common.result.ResultCodeEnum;
 import org.example.core.tool.utils.MessageSourceUtils;
 
+import java.util.function.Function;
+
 /**
- * error 国际化
+ * error 国际化工具类
  *
  * @author phh
  * @version V1.0
@@ -17,6 +20,9 @@ public class LocaleResult {
     private static final ResultCodeEnum SUCCESS = ResultCodeEnum.SUCCESS;
     private static final ResultCodeEnum BIZ_ERROR = ResultCodeEnum.BIZ_ERROR;
     private static final ResultCodeEnum SYSTEM_ERROR = ResultCodeEnum.SYSTEM_ERROR;
+
+    private LocaleResult() {
+    }
 
     public static <T> Result<T> ok(T data) {
         return Result.data(data, SUCCESS.getCode(), MessageSourceUtils.getMsg(SUCCESS.getCode(), SUCCESS.getMsg()));
@@ -60,6 +66,26 @@ public class LocaleResult {
 
     public static <T> Result<T> of(String code) {
         return Result.data(null, code, MessageSourceUtils.getMsg(code));
+    }
+
+    public static <T, R> Result<R> convert(Result<T> result, Function<T, R> func) {
+        return Result.data(func.apply(result.getData()), result.getCode(), result.getMsg());
+    }
+
+    public static <T> Result<T> of(T data, IResultCode resultCode, Object[] args) {
+        return Result.data(data, resultCode.getCode(), MessageSourceUtils.getMsg(resultCode.getCode(), resultCode.getMsg(), args));
+    }
+
+    public static <T> Result<T> of(IResultCode resultCode, Object[] args) {
+        return Result.data(null, resultCode.getCode(), MessageSourceUtils.getMsg(resultCode.getCode(), resultCode.getMsg(), args));
+    }
+
+    public static <T> Result<T> of(IResultCode resultCode) {
+        return Result.data(null, resultCode.getCode(), MessageSourceUtils.getMsg(resultCode.getCode(), resultCode.getMsg()));
+    }
+
+    public static <T> Result<T> of(T data, IResultCode resultCode) {
+        return Result.data(data, resultCode.getCode(), MessageSourceUtils.getMsg(resultCode.getCode(), resultCode.getMsg()));
     }
 
 }
