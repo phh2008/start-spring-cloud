@@ -1,8 +1,10 @@
 package org.example.core.boot.config;
 
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Value;
+import org.example.core.boot.props.SwaggerProperties;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.RequestHandler;
@@ -26,27 +28,22 @@ import java.util.function.Predicate;
  * @date 2020/6/23
  */
 @Configuration
+@EnableConfigurationProperties({SwaggerProperties.class})
 @ConditionalOnProperty(value = "swagger.enable", havingValue = "true")
 @EnableSwagger2
 public class SwaggerConfiguration {
 
     private static final String SPLIT_STR = ",";
 
-    @Value("${swagger.api.title}")
-    private String title;
-
-    @Value("${swagger.api.version}")
-    private String version;
-
-    @Value("${swagger.basePackages:org.example}")
-    private String basePackages;
+    @Autowired
+    private SwaggerProperties swaggerProperties;
 
     @Bean
     public Docket createRestApi() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
                 .select()
-                .apis(basePackage(basePackages)::test)
+                .apis(basePackage(swaggerProperties.getBasePackages())::test)
                 .apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class))
                 .paths(PathSelectors.any())
                 .build();
@@ -54,8 +51,8 @@ public class SwaggerConfiguration {
 
     protected ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title(title)
-                .version(version)
+                .title(swaggerProperties.getApi().getTitle())
+                .version(swaggerProperties.getApi().getVersion())
                 .build();
     }
 
