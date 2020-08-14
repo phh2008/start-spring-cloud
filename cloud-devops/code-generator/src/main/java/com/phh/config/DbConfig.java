@@ -5,23 +5,22 @@ import com.phh.mapper.GeneratorMapper;
 import com.phh.mapper.SysGeneratorMysqlMapper;
 import com.phh.mapper.SysGeneratorOracleMapper;
 import com.phh.mapper.SysGeneratorSqlServerMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 
-import javax.annotation.Resource;
-
 @Configuration
 public class DbConfig {
 
-    @Value("${project.database}")
+    @Value("${project.database:}")
     private String database;
-    @Resource
+    @Autowired
     private SysGeneratorMysqlMapper sysGeneratorMysqlMapper;
-    @Resource
+    @Autowired
     private SysGeneratorOracleMapper sysGeneratorOracleMapper;
-    @Resource
+    @Autowired
     private SysGeneratorSqlServerMapper sysGeneratorSqlServerMapper;
 
     @Bean
