@@ -1,0 +1,54 @@
+server:
+  port: 8080
+spring:
+  profiles:
+    active: dev
+  application:
+    name: code-generator
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  resources:
+    static-locations: ["/templates/","/resources/","/static/","/public/"]
+  mvc:
+    static-path-pattern: /static/**
+  # thymeleaf
+  thymeleaf:
+    enabled: true
+    prefix: classpath:/templates/
+    suffix: .html
+    mode: HTML
+    encoding: UTF-8
+    cache: false
+    servlet:
+      content-type: text/html
+  datasource:
+    dynamic:
+      primary: master
+      datasource:
+        master:
+          username: root
+          password: 123456
+          driver-class-name: com.mysql.cj.jdbc.Driver
+          url: jdbc:mysql://localhost:3306/company_project?useUnicode=true&useSSL=false&characterEncoding=utf8&serverTimezone=GMT%2b8
+        oracle:
+          username: root
+          password: root
+          driver-class-name: oracle.jdbc.driver.OracleDriver
+          url: jdbc:oracle:thin:@localhost:1521/company_project
+        sqlServer:
+          username: sa
+          password: 123456
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          url: jdbc:sqlserver://localhost:1433;databaseName=company_project
+mybatis-plus:
+  mapper-locations: classpath:/mapper/**/*Mapper.xml
+  global-config:
+    db-config:
+      id-type: ASSIGN_ID
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: false
+    use-generated-keys: true
+    use-column-label: true
+    jdbc-type-for-null: null
