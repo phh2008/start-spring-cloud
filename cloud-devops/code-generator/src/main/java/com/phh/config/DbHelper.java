@@ -6,16 +6,14 @@ import com.phh.mapper.SysGeneratorMysqlMapper;
 import com.phh.mapper.SysGeneratorOracleMapper;
 import com.phh.mapper.SysGeneratorSqlServerMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
 
+/**
+ * @author huihui.peng
+ */
 @Configuration
-public class DbConfig {
+public class DbHelper {
 
-    @Value("${project.database:}")
-    private String database;
     @Autowired
     private SysGeneratorMysqlMapper sysGeneratorMysqlMapper;
     @Autowired
@@ -23,9 +21,7 @@ public class DbConfig {
     @Autowired
     private SysGeneratorSqlServerMapper sysGeneratorSqlServerMapper;
 
-    @Bean
-    @Primary
-    public GeneratorMapper getGeneratorMapper() {
+    public GeneratorMapper getGeneratorMapper(String database) {
         if (Constants.DB_TYPE_MYSQL.equalsIgnoreCase(database)) {
             return sysGeneratorMysqlMapper;
         } else if (Constants.DB_TYPE_ORACLE.equalsIgnoreCase(database)) {
