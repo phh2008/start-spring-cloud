@@ -50,7 +50,7 @@
         <thymeleaf-extras-shiro.version>2.0.0</thymeleaf-extras-shiro.version>
         <springdoc.version>1.4.1</springdoc.version>
         <fastjson.version>1.2.33</fastjson.version>
-        <jackson.version>2.10.4</jackson.version>
+        <jackson.version>2.13.4.1</jackson.version>
         <springfox.version>2.9.2</springfox.version>
         <objenesis.version>3.0.1</objenesis.version>
         <cglib.version>3.1</cglib.version>
